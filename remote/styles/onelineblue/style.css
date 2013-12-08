@@ -155,7 +155,7 @@ div#loginbox table {
 
 #header {
 	height: 46px;
-	width: 100%;
+	width: 97.7%;
 	color: white;
 	background: url(../../images/newblue/header.png);
 	position: fixed;
@@ -649,7 +649,7 @@ div#changefolder img, div#changefolder input { vertical-align: middle; }
 }
 
 #filebrowseractions div#folderviewmode {
-	width: 48px;
+	width: 49px;
 	margin-left: 10px;
 }
 
