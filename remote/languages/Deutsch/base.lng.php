@@ -133,6 +133,7 @@ $lng['encrypted']    = 'Verschlüsselt';
 $lng['country']      = 'Land';
 $lng['size_chunks']  = 'Chunks';
 $lng['bitfield']     = 'Bitfeld';
+$lng['added']        = 'Added';
 
 $lng['main']         = 'Alle';
 $lng['started']      = 'Gestartete';

@@ -343,7 +343,8 @@ function page_infos($hash)
 		'd.get_left_bytes',          array($hash),
 		'd.get_directory',           array($hash),
 		'd.get_down_total',          array($hash),
-		'd.get_size_chunks',         array($hash)
+		'd.get_size_chunks',         array($hash),
+		'd.timestamp.started',       array($hash)
 	);
 
 	if($response[IS_ACTIVE][0])
@@ -380,6 +381,9 @@ function page_infos($hash)
 	$infos['down_total']  = format_bytes($response[DOWN_TOTAL][0]);
 	$infos['seeded']      = format_bytes($response[UP_TOTAL][0]);
 	$infos['ratio']       = $response[RATIO][0]/1000;
+	$date = new DateTime();
+	$date->setTimestamp($response[ADDED][0]);
+	$infos['added']       = $date->format('d.m.Y H:i:s');
 	$infos['peers_con']   = $response[PEERS_CONNECTED][0];
 	$infos['peers_nocon'] = $response[PEERS_NOT_CONNECTED][0];
 	$infos['peers_compl'] = $response[PEERS_COMPLETE][0];

@@ -78,6 +78,7 @@ $v['l_seeded']    = '<a href="control.php?sort='.UP_TOTAL        ."&amp;return=i
 $v['l_completed'] = '<a href="control.php?sort='.COMPLETED_BYTES ."&amp;return=index$sid\" title=\"{$lng['orderby']} {$lng['completed']}\">{$lng['completed']}</a>";
 $v['l_size']      = '<a href="control.php?sort='.SIZE_BYTES      ."&amp;return=index$sid\" title=\"{$lng['orderby']} {$lng['size']}\">{$lng['size']}</a>";
 $v['l_peers']     = '<a href="control.php?sort='.PEERS_CONNECTED ."&amp;return=index$sid\" title=\"{$lng['orderby']} {$lng['peers']}\">{$lng['peers']}</a>";
+$v['l_added']     = '<a href="control.php?sort='.ADDED           ."&amp;return=index$sid\" title=\"{$lng['orderby']} {$lng['added']}\">{$lng['added']}</a>";
 $v['l_ratio']     = '<a href="control.php?sort='.RATIO           ."&amp;return=index$sid\" title=\"{$lng['orderby']} {$lng['ratio']}\">{$lng['ratio']}</a>";
 $v['l_check']     = '';
 
@@ -101,6 +102,8 @@ else if($_SESSION['sortkey'] == PEERS_CONNECTED)
 	$v['l_peers'] .= $sorticons[$_SESSION['sortord']];
 else if($_SESSION['sortkey'] == RATIO)
 	$v['l_ratio'] .= $sorticons[$_SESSION['sortord']];
+else if($_SESSION['sortkey'] == ADDED)
+	$v['l_added'] .= $sorticons[$_SESSION['sortord']];
 
 if(isset($_POST['fsubmit']) && isset($_POST['ftext']) && trim($_POST['ftext']) != '')
 {
@@ -154,6 +157,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 		'l_completed',
 		'l_size',
 		'l_peers',
+		'l_added',
 		'l_ratio',
 		'l_message',
 		'l_check',
@@ -183,21 +187,45 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 			$multiselectend = $multiselectoffset + count($group);
 			$multiselecticons = "<span class=\"multimasker groupmasker\"><img src=\"{$imagedir}check.png\" alt=\"Checkall\" onclick=\"checkrange( true , $multiselectoffset, $multiselectend );\" />&nbsp;<img src=\"{$imagedir}uncheck.png\" alt=\"uncheck\" onclick=\"checkrange( false , $multiselectoffset , $multiselectend );\" />&nbsp;&nbsp;&nbsp;</span>";
 			$multiselectoffset = $multiselectend;
-			if($_SESSION['groupmode'] == 1) {
+			if($_SESSION['groupmode'] == 1) { // Group by Tracker
 				$grpct  = "<tbody id=\"{$groupid}\">";
-				$grpct .= "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{$groupid}</a></h2></td></tr>"; // Group by Tracker
+				$grpct .= "<tr>";
+				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
+				$grpct .= "$multiselecticons";
+				$grpct .= "<h2><a href=\"\" onclick=\"return openclose( this );\">{$groupid}</a></h2>";
+				$grpct .= "</td>";
+				$grpct .= "</tr>";
+				//tbody will be closed with the template in style.php
 			}
-			else if($_SESSION['groupmode'] == 2) {
+			else if($_SESSION['groupmode'] == 2) { // Group by Status
 				$grpct  = "<tbody id=\"{$lng["status$groupid"]}\">";
-				$grpct .= "<tbody id=\"{$lng["status$groupid"]}\"><tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{$lng["status$groupid"]}</a></h2></td></tr>";  // Group by Status
+				$grpct .= "<tr>";
+				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
+				$grpct .= "$multiselecticons";
+				$grpct .= "<h2><a href=\"\" onclick=\"return openclose( this );\">{$lng["status$groupid"]}</a></h2>";
+				$grpct .= "</td>";
+				$grpct .= "</tr>";
+				//tbody will be closed with the template in style.php
 			}
-			else if($_SESSION['groupmode'] == 5) {
+			else if($_SESSION['groupmode'] == 5) { // Group by User
 				$grpct  = "<tbody id=\"{getUsername($groupid)}\">";
-				$grpct .= "<tbody id=\"{getUsername($groupid)}\"><tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{getUsername($groupid)}</a></h2></td></tr>"; // Group by User
+				$grpct .= "<tr>";
+				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
+				$grpct .= "$multiselecticons";
+				$grpct .= "<h2><a href=\"\" onclick=\"return openclose( this );\">{getUsername($groupid)}</a></h2>";
+				$grpct .= "</td>";
+				$grpct .= "</tr>"; 
+				//tbody will be closed with the template in style.php
 			}
-			else {
+			else { // Group by Message || Traffic
 				$grpct  = "<tbody id=\"{$lng[$groupid]}\">";
-				$grpct .= "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{$lng[$groupid]}</a></h2></td></tr>";          // Group by Message || Traffic
+				$grpct .= "<tr>";
+				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
+				$grpct .= "$multiselecticons";
+				$grpct .= "<h2><a href=\"\" onclick=\"return openclose( this );\">{$lng[$groupid]}</a></h2>";
+				$grpct .= "</td>";
+				$grpct .= "</tr>";
+				//tbody will be closed with the template in style.php
 			}
 		}
 		else
@@ -205,8 +233,10 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 		foreach($group as $item)
 		{
 			$v = array();
+			$date = new DateTime();
+
 			if($filter && (strpos(strtolower($item[NAME]), $ftext)) === false)
-				continue;
+					continue;
 			$v['l_hash']      = $item[HASH];
 			$v['l_status']    = $item[STATUS];
 			$v['l_statuskey'] = $lng["status{$v['l_status']}"];
@@ -220,11 +250,14 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 			$v['l_completed'] = format_bytes($item[COMPLETED_BYTES]);
 			$v['l_size']      = format_bytes($item[SIZE_BYTES]);
 			$v['l_peers']     = "{$item[PEERS_CONNECTED]}/{$item[PEERS_NOT_CONNECTED]} ({$item[PEERS_COMPLETE]})";
-			$v['l_added']     = $date->format('d.m.Y - H:i');			$v['l_ratio']     = round($item[RATIO]/1000, 2);
+			$date->setTimestamp($item[ADDED]);
+			$v['l_added']     = $date->format('d.m.Y H:i');
+			$v['l_ratio']     = round($item[RATIO]/1000, 2);
 			$v['l_message']   = $item[MESSAGE];
 			if($v['l_ratio'] < 1)
-				$v['l_ratio'] = '<span style="color: #'.dechex(255-($v['l_ratio']*255))."0000;\">{$v['l_ratio']}</span>";
+					$v['l_ratio'] = '<span style="color: #'.dechex(255-($v['l_ratio']*255))."0000;\">{$v['l_ratio']}</span>";
 			$v['l_check']     = "<input type=\"checkbox\" class=\"checkbox\" name=\"multiselect[]\" value=\"{$v['l_hash']}\" />";
+
 
 			$t_count     += 1;
 			$t_done      += $item[PERCENT_COMPLETE];

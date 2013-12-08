@@ -47,7 +47,9 @@ function get_full_list($view, $group, $source)
 			'd.get_up_total=',
 			'd.is_active=',
 			'd.get_left_bytes=',
-			'd.get_directory=');
+			'd.get_directory=',
+			'd.timestamp.started='
+	);
 
 	$response = $rpc->request('d.multicall', $request);
 

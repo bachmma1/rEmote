@@ -114,7 +114,9 @@ if($_SESSION['refmode'] == 2)
 
 			foreach($group as $item)
 			{
+				$date = new DateTime();
 				$l = array();
+				
 				$l_hash         = $item[HASH];
 				$l_status       = $item[STATUS];
 				$l['statuskey'] = $lng["status$l_status"];
@@ -131,7 +133,9 @@ if($_SESSION['refmode'] == 2)
 				if($l['ratio'] < 1)
 					$l['ratio']  = '<span style="color: #'.dechex(255-($l['ratio']*255))."0000;\">{$l['ratio']}</span>";
 				//$l['check']     = "<input type=\"checkbox\" class=\"checkbox\" name=\"multiselect[]\" value=\"$l_hash\" />";
-
+				$date->setTimestamp($item[ADDED]);
+				$l['added']     = $date->format('d.m.Y - H:i');
+				
 				$t_count     += 1;
 				$t_done      += $item[PERCENT_COMPLETE];
 				$t_sup       += $item[UP_RATE];
@@ -172,6 +176,7 @@ if($_SESSION['refmode'] == 2)
 			$l['ratio']     = $t_completed > 0 ? round(($t_seeded/$t_completed), 2) : 0;
 			if($l['ratio'] < 1)
 				$l['ratio'] = '<span style="color: #'.dechex(255-($l['ratio']*255))."0000;\">{$l['ratio']}</span>";
+			$l['added']     = '';
 
 			if(isset($cache[$ident]))
 			{

@@ -71,7 +71,8 @@ $sortkey_arr  = array(NAME             => 'name',
 							COMPLETED_BYTES  => 'completed',
 							SIZE_BYTES       => 'size',
 							PEERS_CONNECTED  => 'peers',
-							RATIO            => 'ratio');
+							RATIO            => 'ratio',
+							ADDED            => 'added');
 
 
 $options = loadOptions();

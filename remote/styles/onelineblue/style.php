@@ -37,10 +37,10 @@ $trows = 1;
  *
  */
 
-$listhead   = '<tr><td>&nbsp;</td><td>{l_name}</td><td>{l_done}</td><td>{l_eta}</td><td colspan="2">{l_sup} {lngspeed} {l_sdwn}</td><td>{l_seeded}</td><td>{l_completed}</td><td>{l_size}</td><td>{l_peers}</td><td>{l_ratio}</td><td>{l_check}</td></tr>';
+$listhead   = '<tr><td>&nbsp;</td><td>{l_name}</td><td>{l_done}</td><td>{l_eta}</td><td colspan="2">{l_sup} {lngspeed} {l_sdwn}</td><td>{l_seeded}</td><td>{l_completed}</td><td>{l_size}</td><td>{l_peers}</td><td>{l_added}</td><td>{l_ratio}</td><td>{l_check}</td></tr>';
 $listbody   = "\n".'<tr class="row{l_even}" id="torrent{l_hash}"><td class="statustd"><span class="statusimg">{l_statusimg}</span><span class="controls">{l_links}</span></td><td class="name">{l_name}</td>';
 $listbody  .= '<td class="done">{l_done}</td><td class="eta">{l_eta}</td><td class="upspeed">{l_sup}</td><td class="downspeed">{l_sdwn}</td>';
-$listbody  .= '<td class="seeded">{l_seeded}</td><td class="completed">{l_completed}</td><td class="size">{l_size}</td><td class="peers">{l_peers}</td><td class="ratio">{l_ratio}</td><td class="check">{l_check}</td></tr>';
+$listbody  .= '<td class="seeded">{l_seeded}</td><td class="completed">{l_completed}</td><td class="size">{l_size}</td><td class="peers">{l_peers}</td><td class="added">{l_added}</td><td class="ratio">{l_ratio}</td><td class="check">{l_check}</td></tr>';
 
 /* Some other variables for footer
  *
@@ -55,9 +55,9 @@ $listbody  .= '<td class="seeded">{l_seeded}</td><td class="completed">{l_comple
  * {l_ratio}     - Average Ratio
  */
 
-$listfoot   = '<tr id="group{l_groupid}"><td colspan="2"><strong>:lng[total]</strong>&nbsp;:lng[count]: {l_count}</td><td class="done">{l_done}</td><td>&nbsp;</td><td class="upspeed">{l_sup}</td><td class="downspeed">{l_sdwn}</td><td class="seeded">{l_seeded}</td><td class="completed">{l_completed}</td><td class="size">{l_size}</td><td>&nbsp;</td><td class="ratio">{l_ratio}</td><td>&nbsp;</td></tr>';
+$listfoot   = '<tr id="group{l_groupid}"><td colspan="2"><strong>:lng[total]</strong>&nbsp;:lng[count]: {l_count}</td><td class="done">{l_done}</td><td>&nbsp;</td><td class="upspeed">{l_sup}</td><td class="downspeed">{l_sdwn}</td><td class="seeded">{l_seeded}</td><td class="completed">{l_completed}</td><td class="size">{l_size}</td><td>&nbsp;</td><td class="added">&nbsp;</td><td class="ratio">{l_ratio}</td><td>&nbsp;</td></tr>';
 $listfoot  .= '</tbody>';
-$numcolumns = 12;  // Number of columns in Table-Line
+$numcolumns = 13;  // Number of columns in Table-Line
 
 /*
  *
