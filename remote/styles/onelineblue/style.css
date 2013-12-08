@@ -590,7 +590,7 @@ div.addfield input, .longinput {
 table#folder {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 20px;
+	margin-top: 5px;
 }
 
 table#folder tr td {

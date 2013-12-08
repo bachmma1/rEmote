@@ -5,12 +5,31 @@ define('ACTIVE',  'add');
 
 require_once('inc/global.php');
 require_once('inc/functions/add.fun.php');
+require_once('inc/functions/file.fun.php');
 require_once('inc/functions/torrents.fun.php');
 require_once('inc/header.php');
 
 $diroptions_arr = array('dirnochange', 'dirchngonce', 'dirchngperm');
 
 logger(LOGDEBUG, 'Called add.php', __FILE__, __LINE__);
+
+if(isset($_SESSION['last']))
+	$last = $_SESSION['last'];
+
+$_SESSION['fileview'] = 0;
+
+if(isset($_REQUEST['change_dir']))
+{
+	$current_dir = clean_dir($_REQUEST['change_dir']);
+	if(!is_valid_dir($current_dir))
+		$current_dir = $_SESSION['rootdir'];
+}
+else if(isset($last))
+	$current_dir = $last;
+else
+	$current_dir = clean_dir($_SESSION['rootdir']);
+
+
 
 if(isset($_POST['add']))
 {
@@ -112,6 +131,7 @@ if(isset($_POST['add']))
 		$out->redirect("index.php$qsid");
 }
 
+$_SESSION['last'] = $current_dir;
 
 if(addJobChecker())
 	$m = $out->getMessages();
@@ -119,30 +139,69 @@ else
 	$m = '';
 $out->content = "<div id=\"main\">$header<div id=\"content\">$m<form action=\"add.php$qsid\" method=\"post\" enctype=\"multipart/form-data\">";
 
+
 if(isset($error))
 	$out->content .= "<div class=\"error\">$error</div>";
 
+/********************AUSGETAUSCHT DURCH FILEBROWSER*****************************
 $addbyurl  = "<fieldset class=\"box\"><legend>{$lng['addbyurl']}</legend>";
 for($x = 1; $x <= $settings['maxaddfieldsurl']; $x++)
 	$addbyurl .= "<div class=\"addfield\">$x.&nbsp;<input type=\"text\" class=\"text\" name=\"addbyurl$x\" /></div>";
 $addbyurl .= "</fieldset>";
+*****************************************************************************/
 
+$adddir    = "<fieldset class=\"box\"><legend>{$lng['diroptions']}</legend>";
 
+$adddir .= "<div id=\"changefolder\">";
+$adddir .= "<img src=\"{$imagedir}folder_open.png\" alt=\"dir\" />&nbsp;";
+$adddir .= "<input class=\"longinput\" type=\"text\" name=\"directory\" value=\"$current_dir\"\" />&nbsp;";
+$adddir .= "<input style=\"width: 500px; display: none;\" type=\"text\" class=\"text\" name=\"change_dir\" value=\"$current_dir\" />";
+$adddir .= "<a title=\"{$lng['folder_home']}\" href=\"add.php?change_dir=" . rawurlencode($_SESSION['rootdir']) . "$sid\"><img src=\"{$imagedir}folder_home.png\" alt=\"home\" /></a>";
+$adddir .= "<a title=\"{$lng['folder_up']}\" href=\"add.php?change_dir=" . rawurlencode(clean_dir($current_dir.'../')) . "$sid\"><img src=\"{$imagedir}folder_up.png\" alt=\"up\" /></a>";
+$adddir .= "</div>";
+
+$adddir  .= "<div class=\"hint\">Der ausgewählte Ordner wird verwendet</div>";
+$adddir   .= "<select name=\"diroptions\" style=\"display:none;\">";
+foreach($diroptions_arr as $dirkey => $diroption)
+	if($diroption == "dirchngonce") 
+		$adddir .= "<option value=\"$dirkey\" selected>{$lng[$diroption]}</option>";
+	else 
+		$adddir .= "<option value=\"$dirkey\">{$lng[$diroption]}</option>";
+$adddir .= "</select>";
+
+$data = scandir($current_dir);
+$dirs = $files = '';
+$adddir .= '<table id="folder">';
+$out->jsinfos['browsetype'] = '\'list\'';
+foreach($data as $file)
+{
+	if($file[0] == '.')
+	{
+		if(!$settings['showinvisiblefiles'] || $file == '.' || $file == '..')
+			continue;
+	}
+	$rdir = rawurlencode($current_dir . $file);
+	$filename = htmlspecialchars($file, ENT_QUOTES);
+	if(is_dir($current_dir . $file))
+	{
+		$line  = "<tr><td class=\"icon\"><img src=\"{$imagedir}folder.png\" alt=\"F\" /></td><td class=\"filename\"><a href=\"add.php?change_dir=$rdir$sid\">$filename</a></td>";
+		$dirs .= $line;
+	}
+	else
+	{
+		$line  = "<tr><td class=\"icon\"><img src=\"{$fileimgs}small/" . get_icon(strtolower(substr($file, -4))) . "\" alt=\"_\" /></td><td class=\"filename\">$filename</td>";
+		$files .= $line;
+	}
+}
+$adddir  .= "$dirs</table>";
+$adddir  .= "</fieldset>";
+$out->addJavascripts('js/filebrowser.js');
 
 
 $addbyfile = "<fieldset class=\"box\"><legend>{$lng['addbyupl']}</legend>";
 for($x = 1; $x <= $settings['maxaddfieldsfile']; $x++)
 	$addbyfile .= "<div class=\"addfield\">$x.&nbsp;<input type=\"file\" class=\"file\" name=\"addbyfile$x\" accept=\"application/x-bittorrent\" /></div>";
 $addbyfile .= "</fieldset>";
-
-
-
-
-$adddir    = "<fieldset class=\"box\"><legend>{$lng['diroptions']}</legend><input class=\"longinput\" type=\"text\" name=\"directory\" value=\"{$_SESSION['dir']}\" />";
-$adddir   .= "<br /><br /><select name=\"diroptions\">";
-foreach($diroptions_arr as $dirkey => $diroption)
-	$adddir .= "<option value=\"$dirkey\">{$lng[$diroption]}</option>";
-$adddir .= "</select></fieldset>";
 
 
 
@@ -161,7 +220,7 @@ if($settings['real_multiuser'])
 $addbox   .= "<input type=\"submit\" name=\"add\" value=\"{$lng['addordir']}\" /></div><div class=\"hint\">{$lng['addodirhint']}</div>";
 $addbox   .= "</fieldset>";
 
-$out->content .= "$addbyurl$addbyfile$adddir$addbox</form></div></div>";
+$out->content .= "$adddir$addbyurl$addbyfile$addbox</form></div></div>";
 
 $out->renderPage($settings['html_title']);
 
