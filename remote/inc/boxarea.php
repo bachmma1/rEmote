@@ -110,7 +110,7 @@ class BoxArea
 	const BOX_SHOUTBOX         = 7;
 	const BOX_LINKLIST         = 8;
 	const BOX_ONLINELIST       = 9;
-	const BOX_TRAFFIC	   = 10;
+	const BOX_TRAFFIC	   	   = 10;
 
 	public function renderBoxSpeedstats($pos, $anz)
 	{
@@ -129,9 +129,9 @@ class BoxArea
 
 	public function renderBoxTrafficStats($pos, $anz)
 	{
-                global $settings, $global, $imagedir, $lng, $rpc;
+        global $settings, $global, $imagedir, $lng, $rpc;
 
-                $trafficDown = $rpc->request('get_down_total');
+        $trafficDown = $rpc->request('get_down_total');
 		$trafficDownPostfix = "";
 		if($trafficDown > 1024)
 		{
@@ -142,53 +142,53 @@ class BoxArea
 				$trafficDown = $trafficDown/1024; //in MB
 				$trafficDownPostfix = "MB";
 				if($trafficDown > 1024)
-                        	{
-                                	$trafficDown = $trafficDown/1024; //in GB
+               	{
+                   	$trafficDown = $trafficDown/1024; //in GB
 					$trafficDownPostfix = "GB";
 					if($trafficDown > 1024)
-                		        {
-                        		        $trafficDown = $trafficDown/1024; //in TB
+        	        {
+           		        $trafficDown = $trafficDown/1024; //in TB
 						$trafficDownPostfix = "TB";
-		                        }
-
-                        	}
+		            }
+               	}
 			}
 		}
-                $trafficDownDisplay = round($trafficDown, 3);
+		$trafficDownDisplay = round($trafficDown, 3);
 
-                $trafficUp = $rpc->request('get_up_total');
+		$trafficUp = $rpc->request('get_up_total');
 		$trafficUpPostfix = "";
-                if($trafficUp > 1024)
-                {
-                        $trafficUp = $trafficUp/1024; // in KB
-                        $trafficUpPostfix = "KB";
-                        if($trafficUp > 1024)
-                        {
-                                $trafficUp = $trafficUp/1024; //in MB
-                                $trafficUpPostfix = "MB";
-                                if($trafficUp > 1024)
-                                {
-                                        $trafficUp = $trafficUp/1024; //in GB
-                                        $trafficUpPostfix = "GB";
-                                        if($trafficUp > 1024)
-                                        {
-                                                $trafficUp = $trafficUp/1024; //in TB
-                                                $trafficUpPostfix = "TB";
-                                        }
+		
+		if($trafficUp > 1024)
+		{
+				$trafficUp = $trafficUp/1024; // in KB
+				$trafficUpPostfix = "KB";
+				if($trafficUp > 1024)
+				{
+						$trafficUp = $trafficUp/1024; //in MB
+						$trafficUpPostfix = "MB";
+						if($trafficUp > 1024)
+						{
+								$trafficUp = $trafficUp/1024; //in GB
+								$trafficUpPostfix = "GB";
+								if($trafficUp > 1024)
+								{
+										$trafficUp = $trafficUp/1024; //in TB
+										$trafficUpPostfix = "TB";
+								}
 
-                                }
-                        }
-                }
-                $trafficUpDisplay = round($trafficUp, 3);
+						}
+				}
+		}
+		$trafficUpDisplay = round($trafficUp, 3);
 
 
-                $box  = "<div class=\"box\" id=\"boxtraffic\"><h2>Traffic</h2><div class=\"boxcontent\">";
-                $box .= "<img src=\"{$imagedir}max_down.png\" alt=\"Down\" />{$trafficDownDisplay} {$trafficDownPostfix}";
-                $box .= "<br /><img src=\"{$imagedir}max_up.png\" alt=\"Up\" />{$trafficUpDisplay} {$trafficUpPostfix}";
-                $box .= "</div></div>";
+		$box  = "<div class=\"box\" id=\"boxtraffic\"><h2>Traffic</h2><div class=\"boxcontent\">";
+		$box .= "<img src=\"{$imagedir}max_down.png\" alt=\"Down\" />{$trafficDownDisplay} {$trafficDownPostfix}";
+		$box .= "<br /><img src=\"{$imagedir}max_up.png\" alt=\"Up\" />{$trafficUpDisplay} {$trafficUpPostfix}";
+		$box .= "</div></div>";
 
-                return $box;
-        }
+		return $box;
+    }
 
 	
 	public function renderBoxDiskstats($pos, $anz)
