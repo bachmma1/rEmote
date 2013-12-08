@@ -168,6 +168,7 @@ $lng['detailsmode'] = 'Standardmodus für Torrent Details';
 
 // MYCP-BOXAREAS
 
+$lng['boxtraffic']  = 'Traffic';
 $lng['boxspeed']    = 'Bandbreitenauslastung';
 $lng['boxdisk']     = 'Festplattenauslastung';
 $lng['boxbandwith'] = 'Bandbreiteneinstellung';

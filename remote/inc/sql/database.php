@@ -75,7 +75,7 @@ class DatabaseFrame
 			$argc = func_num_args();
 
 			if(($argc > 1) && (strlen($types) != ($argc - 2)))
-				$this->fatal('SQL-Error('.__LINE__.')', 'Invalid Query: number of types and number of given Arguments differ!');
+				$this->fatal('SQL-Error('.__LINE__.')', 'Invalid Query: number of types and number of given Arguments differ!\r\n'.$qry.'\r\n'.$types.'\r\n'.$argc);
 
 
 			$stmnt = $this->pdo->prepare($qry);

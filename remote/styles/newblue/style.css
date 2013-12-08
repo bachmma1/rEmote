@@ -1110,3 +1110,10 @@ a.addoption {
 #boxonlinelist ul li { list-style-type: none; list-style-image: url('../../images/newblue/useronline.png'); }
 
 span.highlight { color: red; font-style: italic; };
+
+div.traffic {
+	padding: 1px;
+}
+#boxtraffic div.label {
+	float: left;
+}

@@ -15,7 +15,8 @@ $possible_boxes = array(
 	BoxArea::BOX_SERVERSTATS      => array('label' => 'boxserver',     'visible' => (($_SESSION['status'] > USER) || $settings['user_see_serverinfo'])),
 	BoxArea::BOX_SHOUTBOX         => array('label' => 'boxshoutbox',   'visible' => $settings['shoutbox']                                             ),
 	BoxArea::BOX_LINKLIST         => array('label' => 'boxlinklist',   'visible' => true                                                              ),
-	BoxArea::BOX_ONLINELIST       => array('label' => 'boxonlist',     'visible' => true                                                              )
+	BoxArea::BOX_ONLINELIST       => array('label' => 'boxonlist',     'visible' => true                                                              ),
+	BoxArea::BOX_TRAFFIC	      => array('label' => 'boxtraffic',    'visible' => true								  )
 );
 
 
