@@ -182,7 +182,7 @@ $out->content .= $out->getMessages();
 $out->content .= "<h1>{$lng['logintext']}</h1><form action=\"$url\" method=\"post\"><table>";
 $out->content .= "<tr><td><label for=\"iusername\">{$lng['username']}</label></td><td><input type=\"text\" name=\"username\" id=\"iusername\"/></td></tr>";
 $out->content .= "<tr><td><label for=\"ipassword\">{$lng['password']}</label></td><td><input type=\"password\" name=\"password\" id=\"ipassword\" /></td></tr>";
-if($settings['session_use_cookies'])
+//if($settings['session_use_cookies'])
 	$out->content .= "<tr><td>&nbsp;</td><td><input type=\"checkbox\" name=\"stay\" value=\"true\" id=\"istay\" />&nbsp;&nbsp;<label class=\"hint\" for=\"istay\">{$lng['stayinhint']}</label></td></tr>";
 $out->content .= "<tr><td><input type=\"hidden\" name=\"login\" value=\"true\" /></td><td><input type=\"submit\" value=\"{$lng['login']}\" /></td></tr>";
 $out->content .= "</table></form></div>";
