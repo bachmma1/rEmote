@@ -24,7 +24,7 @@ class REmoteSessionHandler
 		$result = $db->query('SELECT data, time, permanent FROM sessions WHERE sid = ?', 's', $id);
 		if($result && ($data = $db->fetch($result)))
 		{
-			SessionHandler::$sessionexisted = true;
+			REmoteSessionHandler::$sessionexisted = true;
 			if(($data['time'] > (time() - $settings['session_lifetime'])) || intval($data['permanent']))
 				return($data['data']);
 		}
@@ -35,7 +35,7 @@ class REmoteSessionHandler
 	{
 		global $db, $settings;
 
-		if(SessionHandler::$sessionexisted)
+		if(REmoteSessionHandler::$sessionexisted)
 		{
 			if(!defined('IS_REFRESH') || $settings['refresh_no_timeout'])
 				$res = $db->query('UPDATE sessions SET data = ?, time = ? WHERE sid = ?', 'sis',
