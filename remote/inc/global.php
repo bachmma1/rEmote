@@ -61,7 +61,9 @@ $result = $rpc->simple_multicall('system.client_version',
 											'get_down_rate',
 											'get_up_rate',
 											'get_download_rate',
-											'get_upload_rate');
+											'get_upload_rate',
+											'get_down_total',
+											'get_up_total');
 
 $global['versions']['remote']     = REMOTE_VERSION.'-'.REMOTE_BUILD;
 $global['versions']['rtorrent']   = $result[0][0];
@@ -70,6 +72,8 @@ $global['downspeed']              = $result[2][0];
 $global['upspeed']                = $result[3][0];
 $global['downlimit']              = $result[4][0];
 $global['uplimit']                = $result[5][0];
+$global['downtraffic']            = $result[6][0];
+$global['uptraffic']              = $result[7][0];
 
 /*
  * Try to get settings out of cache.

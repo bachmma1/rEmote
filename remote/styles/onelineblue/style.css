@@ -72,6 +72,10 @@ label, span.label {
 	font-style: italic;
 }
 
+div.traffic {
+	padding: 1px;
+}
+
 div.error {
 	border: 2px solid red;
 	padding-top: 12px;
@@ -489,6 +493,10 @@ td.tableheadline div {
 	margin-left: 18px;
 	width: 108px;
 	margin-bottom: 2px;
+}
+
+#boxtraffic div.label {
+	float: left;
 }
 
 #boxspeed div.label, #boxbandwith div.label {

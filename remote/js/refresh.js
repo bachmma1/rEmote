@@ -53,18 +53,22 @@ function stats_refresh( data )
 	document.getElementById('boxup').innerHTML = data[1];
 	document.getElementById('boxdown').innerHTML = data[2];
 	document.getElementById('boxdisk').innerHTML = data[3];
-	document.getElementById('boxdisk').innerHTML = data[3];
-	
-	if(data[4] != '')
+        document.getElementById('boxtrfup').innerHTML = data[4];
+	document.getElementById('boxtrfdown').innerHTML = data[5];
+        document.getElementById('boxtrftotal').innerHTML = data[6];
+
+
+	if(data[7] != '')
 	{
-		var shouts = data[4].replace(/\\'/g,'\'').replace(/\\"/g,'"').replace(/\\0/g,'\0').replace(/\\\\/g,'\\');
+		var shouts = data[7].replace(/\\'/g,'\'').replace(/\\"/g,'"').replace(/\\0/g,'\0').replace(/\\\\/g,'\\');
 		document.getElementById('shouts').innerHTML = shouts;
 	}
-	if(data[5] != '')
-		document.getElementById('boxload').innerHTML = data[5];
+	
+	if(data[8] != '')
+		document.getElementById('boxload').innerHTML = data[8];
 
-	/* Start shifted by 5 as title and the 4 Sidebar-Values are sent at first */
-	if(data.length < 5)
+	/* Start shifted by 8 as title and the 7 Sidebar-Values are sent at first */
+	if(data.length < 8)
 		return;
 
 	var z;
@@ -72,7 +76,7 @@ function stats_refresh( data )
 	var obj;
 	var rows;
 
-	for(y = 6; y < data.length; y = y + 3)
+	for(y = 9; y < data.length; y = y + 3)
 	{
 		/*
 		data[y] = Hash/"x".groupid   (x could not be contained in a hash)

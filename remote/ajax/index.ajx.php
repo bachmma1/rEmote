@@ -46,6 +46,14 @@ $free = format_bytes($free); $total = format_bytes($total);
 
 $output .= ", '<div>{$lng['freespace']}:<br />$free/$total</div>".progressbar($progress).'\'';
 
+$trafficDown = format_bytes($global['downtraffic']);
+$trafficUp = format_bytes($global['uptraffic']);
+$trafficSum = format_bytes($global['downtraffic'] + $global['uptraffic']);
+
+$output .= ", '$trafficUp'";
+$output .= ", '$trafficDown'";
+$output .= ", '$trafficSum'";
+
 if($settings['shoutbox']
 	&& (
 		in_array(BoxArea::BOX_SHOUTBOX, $_SESSION['boxpositions'][BOX_SIDE])
