@@ -129,23 +129,23 @@ class BoxArea
 
 	public function renderBoxTrafficStats($pos, $anz)
         {
-                global $settings, $global, $imagedir, $lng, $rpc;
+			global $settings, $global, $imagedir, $lng, $rpc;
 
-                $trafficDown = $rpc->request('get_down_total');
-                $trafficUp = $rpc->request('get_up_total');
-                $trafficSum = $trafficDown + $trafficUp;
-                $trafficUpDisplay = format_bytes($trafficUp);
-                $trafficDownDisplay = format_bytes($trafficDown);
-                $trafficSumDisplay = format_bytes($trafficSum);
+			$trafficDown = $rpc->request('get_down_total');
+			$trafficUp = $rpc->request('get_up_total');
+			$trafficSum = $trafficDown + $trafficUp;
+			$trafficUpDisplay = format_bytes($trafficUp);
+			$trafficDownDisplay = format_bytes($trafficDown);
+			$trafficSumDisplay = format_bytes($trafficSum);
 
 
-                $box  = "<div class=\"box\" id=\"boxtraffic\"><h2>Traffic</h2><div class=\"boxcontent\">";
-                $box .= "<br /><img src=\"{$imagedir}max_up.png\" alt=\"Up\" />{$trafficUpDisplay}";
-                $box .= "<br /><img src=\"{$imagedir}max_down.png\" alt=\"Down\" />{$trafficDownDisplay}";
-                $box .= "<br /><br /><b>Total = </b>{$trafficSumDisplay}";
-                $box .= "</div></div>";
+			$box  = "<div class=\"box\" id=\"boxtraffic\"><h2>Traffic</h2><div class=\"boxcontent\">";
+			$box .= "<br /><img src=\"{$imagedir}max_up.png\" alt=\"Up\" />{$trafficUpDisplay}";
+			$box .= "<br /><img src=\"{$imagedir}max_down.png\" alt=\"Down\" />{$trafficDownDisplay}";
+			$box .= "<br /><br /><b>Total = </b>{$trafficSumDisplay}";
+			$box .= "</div></div>";
 
-                return $box;
+			return $box;
         }
 	
 	public function renderBoxDiskstats($pos, $anz)
