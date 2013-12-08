@@ -183,14 +183,22 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 			$multiselectend = $multiselectoffset + count($group);
 			$multiselecticons = "<span class=\"multimasker groupmasker\"><img src=\"{$imagedir}check.png\" alt=\"Checkall\" onclick=\"checkrange( true , $multiselectoffset, $multiselectend );\" />&nbsp;<img src=\"{$imagedir}uncheck.png\" alt=\"uncheck\" onclick=\"checkrange( false , $multiselectoffset , $multiselectend );\" />&nbsp;&nbsp;&nbsp;</span>";
 			$multiselectoffset = $multiselectend;
-			if($_SESSION['groupmode'] == 1)
-				$grpct = "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2>$groupid</h2></td></tr>";                  // Group by Tracker
-			else if($_SESSION['groupmode'] == 2)
-				$grpct = "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2>{$lng["status$groupid"]}</h2></td></tr>";  // Group by Status
-			else if($_SESSION['groupmode'] == 5)
-				$grpct = "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2>".getUsername($groupid).'</h2></td></tr>'; // Group by User
-			else
-				$grpct = "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2>{$lng[$groupid]}</h2></td></tr>";          // Group by Message || Traffic
+			if($_SESSION['groupmode'] == 1) {
+				$grpct  = "<tbody id=\"{$groupid}\">";
+				$grpct .= "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{$groupid}</a></h2></td></tr>"; // Group by Tracker
+			}
+			else if($_SESSION['groupmode'] == 2) {
+				$grpct  = "<tbody id=\"{$lng["status$groupid"]}\">";
+				$grpct .= "<tbody id=\"{$lng["status$groupid"]}\"><tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{$lng["status$groupid"]}</a></h2></td></tr>";  // Group by Status
+			}
+			else if($_SESSION['groupmode'] == 5) {
+				$grpct  = "<tbody id=\"{getUsername($groupid)}\">";
+				$grpct .= "<tbody id=\"{getUsername($groupid)}\"><tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{getUsername($groupid)}</a></h2></td></tr>"; // Group by User
+			}
+			else {
+				$grpct  = "<tbody id=\"{$lng[$groupid]}\">";
+				$grpct .= "<tr><td class=\"groupheader\" colspan=\"$numcolumns\">$multiselecticons<h2><a href=\"\" onclick=\"return openclose( this );\">{$lng[$groupid]}</a></h2></td></tr>";          // Group by Message || Traffic
+			}
 		}
 		else
 			$grpct = '';
@@ -212,7 +220,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 			$v['l_completed'] = format_bytes($item[COMPLETED_BYTES]);
 			$v['l_size']      = format_bytes($item[SIZE_BYTES]);
 			$v['l_peers']     = "{$item[PEERS_CONNECTED]}/{$item[PEERS_NOT_CONNECTED]} ({$item[PEERS_COMPLETE]})";
-			$v['l_ratio']     = round($item[RATIO]/1000, 2);
+			$v['l_added']     = $date->format('d.m.Y - H:i');			$v['l_ratio']     = round($item[RATIO]/1000, 2);
 			$v['l_message']   = $item[MESSAGE];
 			if($v['l_ratio'] < 1)
 				$v['l_ratio'] = '<span style="color: #'.dechex(255-($v['l_ratio']*255))."0000;\">{$v['l_ratio']}</span>";
@@ -296,6 +304,8 @@ $out->jsinfos['trows']    = "$trows";
 $out->jsinfos['refreshinterval'] = $_SESSION['refinterval'];
 
 $out->addJavascripts('js/details.js', 'js/index.js');
+$out->addJavascripts('js/collapse.js');
+
 if($_SESSION['refmode'] > 1)
 	$out->addJavascripts('js/refresh.js');
 else if($_SESSION['refmode'] == 1)

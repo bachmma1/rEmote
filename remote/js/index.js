@@ -160,7 +160,10 @@ function detailsclose()
 {
 	if(newtr)
 	{
-		table = document.getElementById("torrenttable").lastChild; // Get tbody
+		//table = document.getElementById("torrenttable").lastChild; // Get tbody
+		table = newtr;
+		while(table.tagName != 'TBODY')
+                        table = table.parentNode;
 		table.removeChild(newtr);
 		newtr = null;
 		hash = null;
@@ -198,8 +201,11 @@ function popupfun( link )
 		for(var x = 1; x < trows; x++)   // Goto last TR of Torrent
 			par = par.nextSibling;
 
-		table = document.getElementById("torrenttable").lastChild; // Get tbody
-
+		//table = document.getElementById("torrenttable").lastChild; // Get tbody
+		//New way to find the right tbody
+		table = par;
+		while(table.tagName != 'TBODY')
+                        table = table.parentNode;
 
 		var params = url.split('?', '2');
 		var parts  = params[1].split('&');

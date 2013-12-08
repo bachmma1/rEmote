@@ -59,6 +59,7 @@ $listbody  .= '<td class="seeded">{l_seeded}</td><td class="completed">{l_comple
  */
 
 $listfoot   = '<tr id="group{l_groupid}"><td colspan="2"><strong>:lng[total]</strong>&nbsp;:lng[count]: {l_count}</td><td class="done">{l_done}</td><td>&nbsp;</td><td class="upspeed">{l_sup}</td><td class="downspeed">{l_sdwn}</td><td class="seeded">{l_seeded}</td><td class="completed">{l_completed}</td><td class="size">{l_size}</td><td>&nbsp;</td><td class="ratio">{l_ratio}</td><td>&nbsp;</td></tr>';
+$listfoot   = '</tbody>';
 
 $numcolumns = 12;  // Number of columns in Table-Line
 
