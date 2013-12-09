@@ -146,6 +146,7 @@ $lng['grouping']    = 'Gruppierung';
 $lng['source']      = 'Quelle';
 $lng['sorting']     = 'Sortierung';
 $lng['sortord']     = 'Sortierungsrichtung';
+$lng['collapsed']   = 'Gruppen zugeklappt';
 $lng['samepage']    = 'Gleiche Seite';
 $lng['popup']       = 'Popup';
 $lng['inline']      = 'Inline';

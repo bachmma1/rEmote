@@ -138,8 +138,9 @@ if(!function_exists($sortfun))
 	logger('LOGERROR', 'Invalid Sortfunction: '.$sortfun, __FILE__, __LINE__);
 	$sortfun = 'sort_torrents_ASC';
 }
-if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSION['sourcemode']))
+if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSION['sourcemode'], $_SESSION['collapsed']))
 {
+	$collapsed = $_SESSION['collapsed'];
 	$multiselectoffset = 0;
 	$multiselectend    = 0;
 
@@ -167,7 +168,8 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 		'l_ldetails',
 		'l_lfilebrowser',
 		'l_links',
-		'l_even'));
+		'l_even',
+		'l_style'));
 
 	foreach($data as $groupid => $group)
 	{
@@ -188,7 +190,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 			$multiselecticons = "<span class=\"multimasker groupmasker\"><img src=\"{$imagedir}check.png\" alt=\"Checkall\" onclick=\"checkrange( true , $multiselectoffset, $multiselectend );\" />&nbsp;<img src=\"{$imagedir}uncheck.png\" alt=\"uncheck\" onclick=\"checkrange( false , $multiselectoffset , $multiselectend );\" />&nbsp;&nbsp;&nbsp;</span>";
 			$multiselectoffset = $multiselectend;
 			if($_SESSION['groupmode'] == 1) { // Group by Tracker
-				$grpct  = "<tbody id=\"{$groupid}\">";
+				$grpct  = "<tbody id=\"{$groupid}\" class=\"torrentgroup\">";
 				$grpct .= "<tr>";
 				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
 				$grpct .= "$multiselecticons";
@@ -198,7 +200,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 				//tbody will be closed with the template in style.php
 			}
 			else if($_SESSION['groupmode'] == 2) { // Group by Status
-				$grpct  = "<tbody id=\"{$lng["status$groupid"]}\">";
+				$grpct  = "<tbody id=\"{$lng["status$groupid"]}\" class=\"torrentgroup\">";
 				$grpct .= "<tr>";
 				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
 				$grpct .= "$multiselecticons";
@@ -208,7 +210,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 				//tbody will be closed with the template in style.php
 			}
 			else if($_SESSION['groupmode'] == 5) { // Group by User
-				$grpct  = "<tbody id=\"{getUsername($groupid)}\">";
+				$grpct  = "<tbody id=\"{getUsername($groupid)}\" class=\"torrentgroup\">";
 				$grpct .= "<tr>";
 				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
 				$grpct .= "$multiselecticons";
@@ -218,7 +220,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 				//tbody will be closed with the template in style.php
 			}
 			else { // Group by Message || Traffic
-				$grpct  = "<tbody id=\"{$lng[$groupid]}\">";
+				$grpct  = "<tbody id=\"{$lng[$groupid]}\" class=\"torrentgroup\">";
 				$grpct .= "<tr>";
 				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
 				$grpct .= "$multiselecticons";
@@ -279,6 +281,10 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 
 			$v['l_links']     = sprintf('%s&nbsp;%s&nbsp;%s&nbsp;%s&nbsp;%s', $v['l_lstopstart'], $v['l_ldelete'], $v['l_lhash'], $v['l_ldetails'], $v['l_lfilebrowser']);
 			$v['l_even']      = $t_count%2;
+			
+			//set the style-element for the torrent
+			//so the template (style.php in newblue/oneline) just put the l_style-variable in the torrents-style-tag
+			$v['l_style']     = $item[STYLE];
 
 			$grpct .= $bodyline->renderOrdered($v);
 		}
@@ -335,6 +341,7 @@ $out->content = "<!-- loggedin --><div id=\"main\">$header$sidebar$rightbar<div 
 
 $out->jsinfos['trows']    = "$trows";
 $out->jsinfos['refreshinterval'] = $_SESSION['refinterval'];
+$out->jsinfos['collapsed'] = $_SESSION['collapsed'];
 
 $out->addJavascripts('js/details.js', 'js/index.js');
 $out->addJavascripts('js/collapse.js');

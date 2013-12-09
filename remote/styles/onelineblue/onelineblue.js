@@ -82,31 +82,4 @@ function hideConfirm()
 	if(bgObj = document.getElementById('bgObj'))
 		bgObj.style.display = "none";
 }
-
-function adaptWidth()
-{
-	var tds = document.getElementById('torrenttable').getElementsByTagName('TD');
-	for( var i = 0; i < tds.length; i++)
-	{
-   	if(tds[i].className == 'name')
-		{
-      	tds[i].getElementsByTagName('A')[0].style.width = "270px";
-		}
-	}
-	
-	var w = 0;
-	for( var i = 0; i < tds.length; i++)
-	{
-   	if(tds[i].className == 'name')
-		{
-			if( w == 0)
-				w = tds[i].offsetWidth + "px";
-      	tds[i].getElementsByTagName('A')[0].style.width = w;
-		}
-	}
-
-}
-
-window.addEventListener('load',     adaptWidth, false);
-window.addEventListener('resize',   adaptWidth, false);
 window.addEventListener('keypress', keyDownFun, false);

@@ -90,7 +90,7 @@ if($_SESSION['refmode'] == 2)
 {
 	// refresh all
 
-	$data=get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSION['sourcemode']);
+	$data=get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSION['sourcemode'], $_SESSION['collapsed']);
 
 
 	$cache = cache_get('refresh');
@@ -177,6 +177,9 @@ if($_SESSION['refmode'] == 2)
 			if($l['ratio'] < 1)
 				$l['ratio'] = '<span style="color: #'.dechex(255-($l['ratio']*255))."0000;\">{$l['ratio']}</span>";
 			$l['added']     = '';
+			//set the style-element for the torrent
+			//so the template (style.php in newblue/oneline) just put the l_style-variable in the torrents-style-tag
+			$l['l_style']     = $item[STYLE];
 
 			if(isset($cache[$ident]))
 			{

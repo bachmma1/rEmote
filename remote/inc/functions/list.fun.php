@@ -25,7 +25,7 @@ function format_time($seconds)
 }
 
 // Get full list - retrieve full list of torrents
-function get_full_list($view, $group, $source)
+function get_full_list($view, $group, $source, $collapsed)
 {
 	global $view_arr, $db, $settings, $rpc;
 
@@ -121,6 +121,12 @@ function get_full_list($view, $group, $source)
 
 		if($group)
 		{
+			//check the default-collapsed-value and dislay the torrents or not
+			//this value can be set in the CP and is saved in the DB per user
+			if($collapsed)
+				$item[STYLE] = 'display:none';
+			else
+				$item[STYLE] = '';
 			if($group == 1)
 			{
 				// GROUP BY TRACKER

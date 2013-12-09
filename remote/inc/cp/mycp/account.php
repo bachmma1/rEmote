@@ -8,7 +8,7 @@ function loadOptions()
 {
 	global $db;
 
-	$uinfo = $db->fetch($db->query('SELECT viewchange, sortord, refchange, viewmode, groupmode, sourcemode, sortkey, refinterval, refmode, detailsstyle, hostnames, bitfields, language, design, detailsmode FROM users WHERE uid = ?', 'i', $_SESSION['uid']));
+	$uinfo = $db->fetch($db->query('SELECT viewchange, sortord, refchange, viewmode, groupmode, sourcemode, sortkey, refinterval, refmode, detailsstyle, hostnames, bitfields, language, design, detailsmode, collapsed FROM users WHERE uid = ?', 'i', $_SESSION['uid']));
 	$opt['viewchange']   = intval($uinfo['viewchange']);
 	$opt['refchange']    = intval($uinfo['refchange']);
 	$opt['sortord']      = $uinfo['sortord'];
@@ -24,6 +24,7 @@ function loadOptions()
 	$opt['lng']          = $uinfo['language'];
 	$opt['style']        = $uinfo['design'];
 	$opt['detailsmode']  = intval($uinfo['detailsmode']);
+	$opt['collapsed']	 = intval($uinfo['collapsed']);
 
 	return($opt);
 }
@@ -32,8 +33,8 @@ function writeOptions($opt)
 {
 	global $db;
 
-	$db->query('UPDATE users SET viewchange = ?, sortord = ?, refchange = ?, viewmode = ?, groupmode = ?, sourcemode = ?, sortkey = ?, refinterval = ?, refmode = ?, detailsstyle = ?, hostnames = ?, bitfields = ?, language = ?, design = ?, detailsmode = ? WHERE uid = ?',
-		'isiiiiiiiiiissii',
+	$db->query('UPDATE users SET viewchange = ?, sortord = ?, refchange = ?, viewmode = ?, groupmode = ?, sourcemode = ?, sortkey = ?, refinterval = ?, refmode = ?, detailsstyle = ?, hostnames = ?, bitfields = ?, language = ?, design = ?, detailsmode = ?, collapsed = ? WHERE uid = ?',
+		'isiiiiiiiiiissiii',
 		$opt['viewchange']   ,
 		$opt['sortord']      ,
 		$opt['refchange']    ,
@@ -49,6 +50,7 @@ function writeOptions($opt)
 		$opt['lng']          ,
 		$opt['style']        ,
 		$opt['detailsmode']  ,
+		$opt['collapsed']    ,
 		$_SESSION['uid']);
 
 	if($db->affected_rows())
@@ -57,6 +59,7 @@ function writeOptions($opt)
 		return false;
 }
 
+$collapse_arr = array('no', 'yes');
 $sort_arr     = array('ASC', 'DESC');
 $details_arr  = array('samepage', 'popup', 'inline');
 $detailsm_arr = array('filetree', 'filelist', 'infos', 'tracker', 'peers');
@@ -123,6 +126,8 @@ if(isset($_POST['save']))
 		$options['hostnames'] = $_POST['hostnames'];
 	if(isset($_POST['bitfields']) && isset($hosts_arr[$_POST['bitfields']]))
 		$options['bitfields'] = $_POST['bitfields'];
+	if(isset($_POST['collapsed']) && isset($collapse_arr[$_POST['collapsed']]))
+		$options['collapsed'] = $_POST['collapsed'];
 
 
 	if(writeOptions($options))
@@ -135,6 +140,7 @@ if(isset($_POST['save']))
 	$_SESSION['bitfields']    = $options['bitfields'];
 	$_SESSION['style']        = $options['style'];
 	$_SESSION['detailsmode']  = $options['detailsmode'];
+	$_SESSION['collapsed']    = $options['collapsed'];
 
 
 	//Password Change
@@ -297,7 +303,15 @@ foreach($a as $f)
 }
 $lang_dropdown .= '</select>';
 
-
+$collapsed_dropdown  = '<select name="collapsed">';
+foreach($collapse_arr as $key => $val)
+{
+	if($options['collapsed'] == $key)
+		$collapsed_dropdown .= "<option value=\"$key\" selected=\"selected\">{$lng[$val]}</option>";
+	else
+		$collapsed_dropdown .= "<option value=\"$key\">{$lng[$val]}</option>";
+}
+$group_dropdown .= '</select>';
 
 $viewselyes = $viewselno = $refrselyes = $refrselno = '';
 
@@ -317,6 +331,7 @@ if($settings['real_multiuser'])
 	$view_options .= "<tr><td>{$lng['source']}</td><td>$source_dropdown</td></tr>";
 $view_options .= "<tr><td>{$lng['sorting']}</td><td>$sort_dropdown</td></tr>";
 $view_options .= "<tr><td>{$lng['sortord']}</td><td>$sortord_dropdown</td></tr>";
+$view_options .= "<tr><td>{$lng['collapsed']}</td><td>$collapsed_dropdown</td></tr>";
 $view_options .= "</table>";
 
 

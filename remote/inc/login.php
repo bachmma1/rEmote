@@ -31,7 +31,7 @@ if(isset($_POST['login']))
 	$res = $db->query('SELECT uid, `password`, `salt` FROM users WHERE name = ?', 's', $_POST['username']);
 	if(($h = $db->fetch($res)) && $h['password'] == sha1($_POST['password'].$h['salt']))
 	{
-		$uinfo = $db->fetch($db->query('SELECT uid, name, status, dir, rootdir, viewchange, sortord, refchange, viewmode, groupmode, sourcemode, sortkey, refinterval, refmode, detailsstyle, hostnames, bitfields, language, design, detailsmode FROM users WHERE uid = ?', 'i', $h['uid']));
+		$uinfo = $db->fetch($db->query('SELECT uid, name, status, dir, rootdir, viewchange, sortord, refchange, viewmode, groupmode, sourcemode, sortkey, refinterval, refmode, detailsstyle, hostnames, bitfields, language, design, detailsmode, collapsed FROM users WHERE uid = ?', 'i', $h['uid']));
 		$_SESSION['uid']          = intval($uinfo['uid']);
 		$_SESSION['username']     = $uinfo['name'];
 		$_SESSION['status']       = intval($uinfo['status']);
@@ -52,6 +52,7 @@ if(isset($_POST['login']))
 		$_SESSION['lng']          = $uinfo['language'];
 		$_SESSION['style']        = $uinfo['design'];
 		$_SESSION['detailsmode']  = intval($uinfo['detailsmode']);
+		$_SESSION['collapsed']    = intval($uinfo['collapsed']);
 
 		$result = $db->query('SELECT boxid, area FROM boxpositions WHERE uid = ? ORDER BY position ASC', 'i', $_SESSION['uid']);
 		$_SESSION['boxpositions'] = array(

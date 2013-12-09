@@ -93,6 +93,7 @@ design|varchar(16)|
 hostnames|tinyint(1)|
 bitfields|tinyint(1)|
 detailsmode|int(4)|
+collapsed|tinyint(1)|
 
 [shouts]
 sid|int(11)|AI,PK
