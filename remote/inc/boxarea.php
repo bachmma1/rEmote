@@ -173,8 +173,8 @@ class BoxArea
 		$box .= "<form action=\"control.php$qsid\" method=\"post\">";
 		$box .= "<div class=\"label\"><img src=\"{$imagedir}max_up.png\" alt=\"Up\" /></div><div><input type=\"text\" class=\"num\" name=\"maxup\" value=\"$upspeed\" />&nbsp;KB/s</div>";
 		$box .= "<div class=\"label\"><img src=\"{$imagedir}max_down.png\" alt=\"Down\" /></div><div><input type=\"text\" class=\"num\" name=\"maxdown\" value=\"$downspeed\" />&nbsp;KB/s</div>";
-		$box .= "<input type=\"submit\" class=\"submit\" name=\"maxspeeds\" value=\"{$lng['apply']}\" /></div>";
-		$box .= '</form></div>';
+		$box .= "<input type=\"submit\" class=\"submit\" name=\"maxspeeds\" value=\"{$lng['apply']}\" />";
+		$box .= '</form></div></div>';
 
 		return $box;
 	}
@@ -272,10 +272,13 @@ class BoxArea
 			while($h = $db->fetch($result))
 				$list[$db->out($h['label'])] = $db->out($h['url']);
 
-			$l = '<ul>';
-			foreach($list as $label => $url)
-				$l .= "<li><a href=\"$url\" title=\"$label\">$label</a></li>";
-			$l .= '</ul>';
+			if(count($list) != 0)
+			{
+				$l = '<ul>';
+				foreach($list as $label => $url)
+					$l .= "<li><a href=\"$url\" title=\"$label\">$label</a></li>";
+				$l .= '</ul>';
+			}
 
 			cache_put('extlinks', $l, $_SESSION['uid'], time() + (60*60*24*7));
 		}

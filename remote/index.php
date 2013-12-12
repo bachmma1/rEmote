@@ -314,7 +314,7 @@ else
 
 $boxArea = new BoxArea();
 
-$content .= "$table<tr><td colspan=\"$numcolumns\"><div class=\"multilinks\">$multilinks</div></td></tr></table></form>";
+$content .= "$table<tbody><tr><td colspan=\"$numcolumns\"><div class=\"multilinks\">$multilinks</div></td></tr></tbody></table></form>";
 
 $sidebar = $boxareatop = $boxareabottom = $sidebarclass = $rightbar = $rightbarclass = '';
 if(count($_SESSION['boxpositions'][BOX_SIDE]))
