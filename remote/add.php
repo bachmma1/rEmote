@@ -220,7 +220,12 @@ if($settings['real_multiuser'])
 $addbox   .= "<input type=\"submit\" name=\"add\" value=\"{$lng['addordir']}\" /></div><div class=\"hint\">{$lng['addodirhint']}</div>";
 $addbox   .= "</fieldset>";
 
-$out->content .= "$adddir$addbyurl$addbyfile$addbox</form></div></div>";
+
+/* This line is no longer needed, because we don't use $addbyurl anymore in the Add-Section (add.php)
+$out->content .= "$adddir$addbyurl$addbyfile$addbox</form></div></div>"; */
+
+$out->content .= "$adddir$addbyfile$addbox</form></div></div>";
+$out->addJavascripts('js/collapse.js');
 
 $out->renderPage($settings['html_title']);
 

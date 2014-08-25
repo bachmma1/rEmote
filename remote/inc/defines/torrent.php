@@ -27,5 +27,5 @@ define('STATUS',              20);
 define('ETA',                 21);
 define('PERCENT_COMPLETE',    22);
 define('DOWN_TOTAL',          20);
-define('SIZE_CHUNKS',         21);
+define('SIZE_CHUNKS',         19);
 ?>

@@ -51,7 +51,12 @@ class RpcHandler
 		if((is_array($response) && xmlrpc_is_fault($response)) || (!is_array($response) && xmlrpc_is_fault(array($response))))
 		{
 			if($dieonfault)
-				$out->fatal('XMLRPC-ERROR', "{$response['faultCode']}: {$response['faultString']}");
+			{
+				if ($response['faultCode'] == 503)
+					$out->fatal('XMLRPC-ERROR', "{$response['faultCode']}: {$response['faultString']} \r\nDid you update to new rtorrent/libtorrent version?");
+				else
+					$out->fatal('XMLRPC-ERROR', "{$response['faultCode']}: {$response['faultString']}");
+			}
 			else
 				return false;
 		}
