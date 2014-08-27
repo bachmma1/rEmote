@@ -210,11 +210,11 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 				//tbody will be closed with the template in style.php
 			}
 			else if($_SESSION['groupmode'] == 5) { // Group by User
-				$grpct  = "<tbody id=\"{getUsername($groupid)}\" class=\"torrentgroup\">";
+				$grpct  = "<tbody id=\"".getUsername($groupid)."\" class=\"torrentgroup\">";
 				$grpct .= "<tr>";
 				$grpct .= "<td class=\"groupheader\" colspan=\"$numcolumns\">";
 				$grpct .= "$multiselecticons";
-				$grpct .= "<h2><a href=\"\" onclick=\"return openclose( this );\">{getUsername($groupid)}</a></h2>";
+				$grpct .= "<h2><a href=\"\" onclick=\"return openclose( this );\">".getUsername($groupid)."</a></h2>";
 				$grpct .= "</td>";
 				$grpct .= "</tr>"; 
 				//tbody will be closed with the template in style.php
