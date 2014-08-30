@@ -170,6 +170,7 @@ function get_peer_list($hash)
 
 	$bitfields = $settings['showbitfields'] && $_SESSION['bitfields'];
 
+	/*
 	if($bitfields)
 		$response = $rpc->request("p.multicall",
 									array($hash,
@@ -183,6 +184,7 @@ function get_peer_list($hash)
 										'p.is_encrypted=',
 										'p.get_bitfield='));
 	else
+	*/
 		$response = $rpc->request("p.multicall",
 									array($hash,
 										0,
@@ -206,14 +208,17 @@ function get_peer_list($hash)
 		$retarr[$index]['down_rate']         = $item[P_DOWN_RATE     ];
 		$retarr[$index]['port']              = $item[P_PORT          ];
 		$retarr[$index]['is_encrypted']      = $item[P_IS_ENCRYPTED  ];
+		/*
 		if($bitfields)
 		{
 			// Push to cache
 			$cache[$index] = $item[P_BITFIELD];
 		}
+		*/
 		$index++;
 	}
 
+	/*
 	if($bitfields && count($cache))
 	{
 		$already = cache_get('bitfields');
@@ -223,6 +228,7 @@ function get_peer_list($hash)
 		$already[$hash] = $cache;
 		cache_put('bitfields', $already, $_SESSION['uid'], (time() + 120));
 	}
+	*/
 	return($retarr);
 }
 

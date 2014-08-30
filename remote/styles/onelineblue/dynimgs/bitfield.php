@@ -44,7 +44,9 @@ $value = 0;
 $oldx = -293;
 
 for($i = 0; $i < $length; ++$i) {
-    $char = hexdec($bitfield[floor($i / 4)]);
+    $idx = intval(floor($i / 4));
+	$char = hexdec($bitfield[$idx]);
+	
 	if($char & (8 >> ($i % 4))) {
 		$value |= 2;
 	} else {
