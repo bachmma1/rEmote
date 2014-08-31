@@ -468,8 +468,10 @@ function page_peers($hash)
 		$row .= "<td>{$peer['port']}</td>";
 		$row .= "<td>{$lng[$yn[$peer['is_encrypted']]]}</td></tr>";
 		$table .= $row;
+		/*
 		if($settings['showbitfields'] && $_SESSION['bitfields'])
 			$table .= "<tr><td colspan=\"8\"><img src=\"{$dynimgs}bitfield.php?hash=$hash&amp;key=$key&amp;width=600$sid\" alt=\"Bitfield\" height=\"12\" width=\"600\" /></td></tr>";
+		*/	
 	}
 	$table .= '</table>';
 

@@ -262,6 +262,7 @@ foreach($hosts_arr as $key => $val)
 }
 $hostnames_dropdown .= "</select>";
 
+/*
 if($settings['showbitfields'])
 {
 	$bitfields_dropdown = '<select name="bitfields">';
@@ -274,6 +275,7 @@ if($settings['showbitfields'])
 	}
 	$bitfields_dropdown .= "</select>";
 }
+*/
 
 $style_dropdown = "<select name=\"style\">";
 $a = scandir(TO_ROOT.'styles/');
@@ -361,8 +363,10 @@ $box_settings .= "<tr><td>{$lng['style']}</td><td>$style_dropdown</td></tr>";
 $box_settings .= "<tr><td>{$lng['opendetails']}</td><td>$details_dropdown</td></tr>";
 $box_settings .= "<tr><td>{$lng['detailsmode']}</td><td>$detailsm_dropdown</td></tr>";
 $box_settings .= "<tr><td>{$lng['showhosts']}</td><td>$hostnames_dropdown</td></tr>";
+/*
 if($settings['showbitfields'])
 	$box_settings .= "<tr><td>{$lng['showbfields']}</td><td>$bitfields_dropdown</td></tr>";
+*/
 $box_settings .= "</table></fieldset>";
 
 $box_pwd  = "<fieldset class=\"box\" id=\"pwdbox\"><legend>{$lng['changepwd']}</legend><table>";

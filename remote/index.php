@@ -337,7 +337,7 @@ if(addJobChecker())
 	$m = $out->getMessages();
 else
 	$m = '';
-$out->content = "<!-- loggedin --><div id=\"main\">$header$sidebar$rightbar<div id=\"content\" class=\"contentoftable$sidebarclass$rightbarclass\">$m$boxareatop$content$boxareabottom</div></div>";
+$out->content = "<!-- loggedin --><div id=\"main\">$header<div id=\"contentcontainer\">$sidebar<div id=\"content\" class=\"contentoftable$sidebarclass$rightbarclass\">$m$boxareatop$content$boxareabottom</div>$rightbar</div></div>";
 
 $out->jsinfos['trows']    = "$trows";
 $out->jsinfos['refreshinterval'] = $_SESSION['refinterval'];

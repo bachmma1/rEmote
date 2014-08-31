@@ -14,12 +14,26 @@ body#bodysmall {
 	margin: 10px;
 	overflow: hidden;
 	clear: both;
+	min-width: 1524px;
+}
+
+#contentcontainer {
+        float: left;
+        width: 100%;
 }
 
 #content {
+	float: left;
 	padding: 10px;
-	margin-top: 40px;
+	width: 99%;
 }
+
+#contentcontainer > #content.withsidebar {
+        float: left;
+        padding: 10px;
+        width: 79%;
+}
+
 
 h1  { color: #0000aa; }
 h2  { font-size: 20px;}
@@ -159,10 +173,9 @@ div#loginbox table {
 
 #header {
 	height: 46px;
-	width: 97.7%;
+	width: 100%;
 	color: white;
 	background: url(../../images/newblue/header.png);
-	position: fixed;
 }
 
 #logo {
@@ -362,22 +375,25 @@ div.boxarea h2:first-letter {
 }
 
 div#sidebar {
-	width: 140px;
+	min-width: 140px;
+	max-width: 140px;
 	float: left;
-	margin-top: 50px;
+	margin-top: 10px;
 	margin-left: 10px;
 	font-size: 12px;
-	position: fixed;
+	width: 9%;
+	display: inline;
 }
 
 div#rightbar {
-	width: 140px;
+	min-width: 140px;
+	max-width: 140px;
 	float: right;
-	margin-top: 50px;
+	margin-top: 10px;
 	margin-right: 10px;
 	font-size: 12px;
-	position: fixed;
-	right: 1%;
+	display: inline;
+	width: 9%;
 }
 
 
@@ -409,15 +425,12 @@ div#sidebar div#boxrefresh input.text, div#rightbar div#boxrefresh input.text {
 }
 
 div.withsidebar {
-	margin-left: 150px;
 }
 
 div.withrightbar {
-	margin-right: 150px;
 }
 
 div.contentoftable {
-	min-height: 300px;
 }
 
 #torrenttable {
@@ -456,6 +469,7 @@ thead {
 td.tableheadline div#tshow {
 	color: white;
 	text-align: left;
+	float: left;
 }
 td.tableheadline select, td.tableheadline input {
 	background: #669;
@@ -484,7 +498,6 @@ td.tableheadline h2:first-letter {
 }
 
 td.tableheadline div {
-	margin-left: 100px;
 	height: 16px;
 	margin-top: 5px;
 }
@@ -554,8 +567,13 @@ td.tableheadline div {
 	font-style: italic;
 }
 
-div.multilinks { float: right; margin-right: 7px;}
-td.tableheadline div.multilinks { margin-left: 5px; }
+div.multilinks { 
+	float: right; 
+	margin-right: 7px;
+}
+td.tableheadline div.multilinks { 
+	float: right;
+}
 
 div.multilinks input { border: none; background: none; }
 span.multimasker img { cursor: pointer; }
