@@ -3,7 +3,7 @@
 $stylesheets = array('styles/onelineblue/style.css');
 $imagedir    = 'images/onelineblue/';
 $fileimgs    = 'images/filetypes/';
-$dynimgs     = 'styles/newblue/dynimgs/';
+$dynimgs     = 'styles/onelineblue/dynimgs/';
 $smileyimgs  = 'images/newblue/smileys/';
 $stylejs     = array('styles/onelineblue/onelineblue.js');
 
