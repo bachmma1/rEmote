@@ -31,6 +31,18 @@ body#bodysmall {
 #contentcontainer > #content.withsidebar {
         float: left;
         padding: 10px;
+        width: 89%;
+}
+
+#contentcontainer > #content.withrightbar {
+        float: left;
+        padding: 10px;
+        width: 89%;
+}
+
+#contentcontainer > #content.withrightbar.withsidebar {
+        float: left;
+        padding: 10px;
         width: 79%;
 }
 
