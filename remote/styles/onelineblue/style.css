@@ -14,37 +14,39 @@ body#bodysmall {
 	margin: 10px;
 	overflow: hidden;
 	clear: both;
-	min-width: 1524px;
+	min-width: 1489px;
 }
 
 #contentcontainer {
-        float: left;
-        width: 100%;
+        float: none;
+        width: 99%;
+	margin: auto;
 }
 
 #content {
 	float: left;
-	padding: 10px;
+	padding: 0.5%;
 	width: 99%;
 }
 
 #contentcontainer > #content.withsidebar {
         float: left;
-        padding: 10px;
-        width: 89%;
+        padding: 0.5%;
+        width: 89.5%;
 }
 
 #contentcontainer > #content.withrightbar {
         float: left;
-        padding: 10px;
-        width: 89%;
+        padding: 0.5%;
+        width: 89.5%;
 }
 
 #contentcontainer > #content.withrightbar.withsidebar {
         float: left;
-        padding: 10px;
-        width: 79%;
+        padding: 0.5%;
+        width: 80%;
 }
+
 
 
 h1  { color: #0000aa; }
@@ -387,25 +389,21 @@ div.boxarea h2:first-letter {
 }
 
 div#sidebar {
-	min-width: 140px;
-	max-width: 140px;
 	float: left;
-	margin-top: 10px;
-	margin-left: 10px;
 	font-size: 12px;
-	width: 9%;
+	width: 9.5%;
 	display: inline;
+	margin: 0.5% auto auto auto;
+	text-align: center;
 }
 
 div#rightbar {
-	min-width: 140px;
-	max-width: 140px;
-	float: right;
-	margin-top: 10px;
-	margin-right: 10px;
+	float: left;
 	font-size: 12px;
 	display: inline;
-	width: 9%;
+	width: 9.5%;
+	margin: 0.5% auto auto auto;
+	text-align: center;
 }
 
 
@@ -429,7 +427,7 @@ div.boxarea div.boxcontent {
 }
 
 div.boxarea div.boxcontent div.progress {
-	width: 125px;
+	width: 98%;
 }
 
 div#sidebar div#boxrefresh input.text, div#rightbar div#boxrefresh input.text {
@@ -516,7 +514,7 @@ td.tableheadline div {
 
 #boxspeed div.progress {
 	margin-left: 18px;
-	width: 108px;
+	width: 86%;
 	margin-bottom: 2px;
 }
 
@@ -1120,9 +1118,11 @@ a.addoption {
 {
 	margin: 0;
 	padding: 0;
+	text-align: left;
 }
 
 #boxonlinelist ul { margin: 0; padding-left: 24px; }
 #boxonlinelist ul li { list-style-type: none; list-style-image: url('../../images/onelineblue/useronline.png'); }
 
 span.highlight { color: red; font-style: italic; };
+

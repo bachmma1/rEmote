@@ -185,7 +185,7 @@ class BoxArea
 
 		$box  = "<div class=\"box\" id=\"boxfilter\"><h2>{$lng['filter']}</h2><div class=\"boxcontent\">";
 		$box .= "<form action=\"index.php$qsid\" method=\"post\">";
-		$box .= "<div><input type=\"text\" name=\"ftext\" class=\"text\" value=\"$ftext\" onkeyup=\"filter( this );\" /></div>";
+		$box .= "<div><input type=\"text\" name=\"ftext\" class=\"text\" value=\"$ftext\" style=\"width: 97%\" onkeyup=\"filter( this );\" /></div>";
 		$box .= "<div><input type=\"submit\" name=\"fsubmit\" id=\"fsubmit\" class=\"submit\" value=\"{$lng['apply']}\" /></div></form></div></div>";
 		
 		return $box;
