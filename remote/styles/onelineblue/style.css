@@ -19,32 +19,32 @@ body#bodysmall {
 
 #contentcontainer {
         float: none;
-        width: 99%;
+        width: 100%;
 	margin: auto;
 }
 
 #content {
 	float: left;
-	padding: 0.5%;
 	width: 99%;
+	margin: 0.5% 0.5% 0.5% 0.5%;
 }
 
 #contentcontainer > #content.withsidebar {
         float: left;
-        padding: 0.5%;
-        width: 89.5%;
+        margin: 0.5% auto auto 0.5%;
+        width: 89%;
 }
 
 #contentcontainer > #content.withrightbar {
         float: left;
-        padding: 0.5%;
-        width: 89.5%;
+        margin: 0.5% 0.5% 0.5% 0.5%;
+        width: 89%;
 }
 
 #contentcontainer > #content.withrightbar.withsidebar {
         float: left;
-        padding: 0.5%;
-        width: 80%;
+        margin: 0.5% 0.5% 0.5% 0.5%;
+        width: 79%;
 }
 
 
@@ -393,7 +393,7 @@ div#sidebar {
 	font-size: 12px;
 	width: 9.5%;
 	display: inline;
-	margin: 0.5% auto auto auto;
+	margin: 0.5% auto auto 0.5%;
 	text-align: center;
 }
 
@@ -402,7 +402,7 @@ div#rightbar {
 	font-size: 12px;
 	display: inline;
 	width: 9.5%;
-	margin: 0.5% auto auto auto;
+	margin: 0.5% 0.5% auto auto;
 	text-align: center;
 }
 
@@ -603,7 +603,7 @@ span.torrentmessage {
 
 fieldset.box {
 	border-color: #0000aa;
-	margin: 10px;
+	margin: 0px 0px 10px 0px;
 }
 
 fieldset.box legend {
