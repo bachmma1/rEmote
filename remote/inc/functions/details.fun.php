@@ -388,7 +388,7 @@ function page_infos($hash)
 	$infos['seeded']      = format_bytes($response[UP_TOTAL][0]);
 	$infos['ratio']       = $response[RATIO][0]/1000;
 	$date = new DateTime();
-	$date->setTimestamp($response[ADDED][0]);
+	$date->setTimestamp($response[ADDED_INFO][0]);
 	$infos['added']       = $date->format('d.m.Y H:i:s');
 	$infos['peers_con']   = $response[PEERS_CONNECTED][0];
 	$infos['peers_nocon'] = $response[PEERS_NOT_CONNECTED][0];

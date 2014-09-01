@@ -21,11 +21,12 @@ define('LEFT_BYTES',          16);
 define('GET_DIRECTORY',       17);
 define('ADDED',               18);
 define('STYLE',               19);
+define('ADDED_INFO',		  20);
 
 //Don't yet discovered magic stuff
 define('STATUS',              20);
 define('ETA',                 21);
 define('PERCENT_COMPLETE',    22);
-define('DOWN_TOTAL',          20);
+define('DOWN_TOTAL',          18);
 define('SIZE_CHUNKS',         19);
 ?>
