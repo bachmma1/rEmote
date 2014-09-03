@@ -830,8 +830,26 @@ table#logtable td.logscript {
 a.yes { font-weight: bold; color: green; }
 a.no  { font-weight: bold; color: red; margin-left: 40px; }
 
-input.yes { font-weight: bold; width: 140px; text-align: center; padding: 4px; border: 1px solid black; color: white; background-color: green; }
-input.no  { font-weight: bold; width: 140px; text-align: center; padding: 4px; border: 1px solid black; color: white; background-color: red; margin-left: 40px; }
+input.yes { 
+	font-weight: bold; 
+	width: 140px; 
+	text-align: center; 
+	padding: 4px; 
+	border: 1px solid black; 
+	color: white; 
+	background-color: green;
+	margin: 1%;
+}
+input.no  { 
+	font-weight: 
+	bold; width: 140px; 
+	text-align: center; 
+	padding: 4px; 
+	border: 1px solid black; 
+	color: white; 
+	background-color: red; 
+	margin-left: 1%; 
+}
 
 table#settingstable {
 	border-collapse: collapse;
@@ -1086,7 +1104,7 @@ div.framebox>div {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 15%;
-	width: 600px;
+	width: 50%;
 }
 
 div.framebox div div {

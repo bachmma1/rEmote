@@ -60,11 +60,14 @@ if($_SESSION['detailsstyle'] > 0)
 	if($_SESSION['detailsstyle'] > 1)
 	{
 		$out->jsinfos['numcolumns']    = $numcolumns;
-		$out->addJSLang('loading', 'filetree', 'filelist', 'infos', 'tracker', 'peers', 'close', 'delconfirm', 'yes', 'no');
+		$out->addJSLang('loading', 'filetree', 'filelist', 'infos', 'tracker', 'peers', 'close', 'delconfirm', 'yes', 'no', 'nothing', 'onlytorrent', 'torrentwithdata');
 	}
 }
 else
 	$dlink = '<a href="details.php?hash=%s%s" title="%s"%s>%s</a>';
+
+/* Inform javascript about the language variables */
+$out->addJSLang('loading', 'filetree', 'filelist', 'infos', 'tracker', 'peers', 'close', 'delconfirm', 'yes', 'no', 'nothing', 'onlytorrent', 'torrentwithdata');	
 
 /* Build Linkvariables for Table-Head */
 $v = array('lngspeed' => $lng['speed']);
@@ -125,7 +128,7 @@ $multilinks .= "<span class=\"multimasker\"><img src=\"{$imagedir}check.png\" al
 $multilinks .= "<img src=\"{$imagedir}arrow.png\" alt=\"&crarr;\" />";
 
 $viewoptions = "{$lng['show']} $views $source {$lng['groupby']} $group <input type=\"submit\" class=\"submit\" name=\"viewchange\" value=\"{$lng['viewchange']}\" />";
-$table  = "<form name=\"controls\" action=\"control.php?return=index$sid\" method=\"post\"><table id=\"torrenttable\"><thead><tr><td colspan=\"$numcolumns\" class=\"tableheadline\"><h2>{$lng['torrents']}</h2><div class=\"multilinks\">$multilinks</div><div id=\"tshow\">$viewoptions</div></td></tr>";
+$table  = "<form name=\"controls\" action=\"control.php?return=index$sid\" method=\"post\"><table id=\"torrenttable\"><thead><tr><td colspan=\"$numcolumns\" class=\"tableheadline\"><h2>{$lng['torrents']}</h2><div id=\"tshow\">$viewoptions</div><div class=\"multilinks\">$multilinks</div></td></tr>";
 //eval("\$table .= \"$listhead</thead>\";");
 $table .= Template::quickparse($listhead, $v);
 $table .= '</thead>';
@@ -243,7 +246,7 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 			$v['l_status']    = $item[STATUS];
 			$v['l_statuskey'] = $lng["status{$v['l_status']}"];
 			$v['l_statusimg'] = "<img src=\"{$imagedir}status_{$v['l_status']}.png\" alt=\"{$v['l_statuskey']}\" />";
-			$v['l_name']      = sprintf($dlink, $v['l_hash'], $sid, $lng['viewdetls'], " name=\"{$v['l_hash']}\"", replace_latin1($item[NAME]));
+			$v['l_name']      = sprintf($dlink, $v['l_hash'], $sid, $lng['viewdetls'], " id=\"{$v['l_hash']}\"", replace_latin1($item[NAME]));
 			$v['l_done']      = progressbar($item[PERCENT_COMPLETE], $item[PERCENT_COMPLETE].'%');
 			$v['l_eta']       = $item[ETA];
 			$v['l_sup']       = ($item[UP_RATE] ? ('<span class="speedhighlight">'.format_bytes($item[UP_RATE]).'/s</span>') : format_bytes($item[UP_RATE]).'/s');
@@ -274,7 +277,9 @@ if($data = get_full_list($_SESSION['viewmode'], $_SESSION['groupmode'], $_SESSIO
 				$v['l_lstopstart'] = "<a href=\"control.php?ctl=stop&amp;hash={$v['l_hash']}&amp;return=torrent$sid\" title=\"{$lng['stopthis']}\"><img src=\"{$imagedir}stop.png\" alt=\"{$lng['stop']}\" /></a>";
 			else
 				$v['l_lstopstart'] = "<a href=\"control.php?ctl=start&amp;hash={$v['l_hash']}&amp;return=torrent$sid\" title=\"{$lng['startthis']}\"><img src=\"{$imagedir}start.png\" alt=\"{$lng['start']}\" /></a>";
-			$v['l_ldelete'] = "<a href=\"control.php?ctl=delete&amp;hash={$v['l_hash']}&amp;return=torrent$sid\" onclick=\"return showConfirm( this , 'del' );\" title=\"{$lng['deletethis']}\"><img src=\"{$imagedir}delete.png\" alt=\"{$lng['delete']}\" /></a>";
+
+			//$v['l_ldelete'] = "<a href=\"control.php?ctl=delete&amp;hash={$v['l_hash']}&amp;return=torrent$sid\" onclick=\"return showConfirm( this , 'del' );\" title=\"{$lng['deletethis']}\"><img src=\"{$imagedir}delete.png\" alt=\"{$lng['delete']}\" /></a>";
+			$v['l_ldelete'] = "<a href=\"control.php?ctl=delete&amp;hash={$v['l_hash']}&amp;return=torrent$sid\" onclick=\"return showConfirm( 'control.php?ctl=delete&amp;hash={$v['l_hash']}&amp;return=torrent$sid&path=".rawurlencode($item[GET_DIRECTORY])."', 'del' );\" title=\"{$lng['deletethis']}\"><img src=\"{$imagedir}delete.png\" alt=\"{$lng['delete']}\" /></a>";
 			$v['l_lhash'] = "<a href=\"control.php?ctl=hash&amp;hash={$v['l_hash']}&amp;return=torrent$sid\" title=\"{$lng['hashthis']}\"><img src=\"{$imagedir}hash.png\" alt=\"{$lng['hash']}\" /></a>";
 			$v['l_ldetails'] = sprintf($dlink, $v['l_hash'], $sid, $lng['viewdetls'], '', "<img src=\"{$imagedir}view.png\" alt=\"{$lng['details']}\" />");
 			$v['l_lfilebrowser'] = "<a href=\"filebrowser.php?change_dir=".rawurlencode($item[GET_DIRECTORY])."$sid\" title=\"{$lng['gotodir']}\"><img src=\"{$imagedir}folder.png\" alt=\"{$lng['gotodir']}\" /></a>";

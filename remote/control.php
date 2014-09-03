@@ -1,5 +1,4 @@
 <?php
-
 define('TO_ROOT', './');
 
 require_once('inc/global.php');
@@ -34,12 +33,16 @@ function deletetorrent($hash)
 		$db->query('DELETE FROM torrents WHERE hash = ?', 's', $hash);
 }
 
-
+function deletedata($path)
+{
+	include('inc/functions/file.fun.php');
+	rrmdir($path);
+}
 
 function hashtorrent($hash)
 {
 	global $rpc;
-	
+
 	$rpc->request('d.check_hash', array($hash));
 	logger(LOGDEBUG, 'Tried to hash '.$hash, __FILE__, __LINE__);
 }
@@ -114,6 +117,9 @@ else if(isset($_GET['hash']) && isset($_GET['ctl']))
 				break;
 			case 'delete':
 				deletetorrent($hash);
+				if(isset($_GET['path'])) {
+					deletedata($_GET['path']);
+				}
 				break;
 			case 'hash':
 				hashtorrent($hash);

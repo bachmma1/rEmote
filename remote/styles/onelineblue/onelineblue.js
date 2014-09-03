@@ -1,3 +1,24 @@
+function getNameFromHash(hash) {
+	var atag = document.getElementById(hash);
+	return atag.innerHTML;
+}
+
+function getQueryVariable(variable, query)
+{
+       var params = query.split("?")[1];
+       var vars = params.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+function linkToDirName(link) {
+	var vars = link.split("%2F");
+	return vars[vars.length-1];
+}
+
 function fade( obj, opacity )
 {
 	obj.style.opacity = opacity;
@@ -15,14 +36,24 @@ function keyDownFun(e)
 
 function showConfirm( link , action )
 {
-	var text;
+	var text, name;
+	var istorrent = false;
 	var confadd = '&confirm=true';
 	var con, bgObj;
-	
-	if(action == "del")
+
+	if(action == "del") {
+		istorrent = true;
 		text = lngdelconfirm;
-	else if(action == 'fdel')
+		name = getNameFromHash(getQueryVariable("hash", link));
+	}
+	else if(action == 'fdel') {
+		istorrent = false;
 		text = lngfbdelconf;
+		if(getQueryVariable("action", link) == "deldir")
+			name = linkToDirName(getQueryVariable("dir", link));
+		else if (getQueryVariable("action", link) == "delfile")
+			name = linkToDirName(getQueryVariable("file", link));
+	}
 	
 	if(!(con = document.getElementById('confirm')))
 	{
@@ -46,13 +77,21 @@ function showConfirm( link , action )
 	else
 		bgObj.style.display = "block";
 
-	form  = '<input type="submit" value="' + lngyes + '" class="yes" onclick="location.href = \'' + link.href + confadd + '\';" />';
-	form += '<input type="submit" value="' + lngno  + '" class="no" onclick="hideConfirm();" />';
-	con.innerHTML = "<div><div><p>" + text + "</p><p id=\"confbuttons\">"+ form + "</p></div></div>";
+	if (!istorrent) {
+		form  = '<input type="submit" value="' + lngyes + '" class="yes" onclick="location.href = \'' + link + confadd + '\';" />';
+		form += '<input type="submit" value="' + lngno  + '" class="no" onclick="hideConfirm();" />';
+	}
+	else {
+		var onlytorrent = link.split("&path");
+		form = '<input type="submit" value="' + lngonlytorrent + '" class="yes" onclick="location.href = \'' + onlytorrent[0] + confadd + '\';" />';
+		form += '<input type="submit" value="' + lngtorrentwithdata + '" class="yes" onclick="location.href = \'' + link + confadd + '\';" />';
+		form += '<input type="submit" value="' + lngnothing + '" class="no" onclick="hideConfirm();" />';
+	}
+
    con.style.zIndex = 999;
    bgObj.style.zIndex = 998;
    bgObj.style.backgroundColor = 'black';
-
+	con.innerHTML = "<div><div>" + "<p><b>" + name + "</b></p>" + "<p>" + text + "</p><p id=\"confbuttons\">"+ form + "</p></div></div>";
 	var max = 0.7;
 
 	fade(bgObj, 0.0);
