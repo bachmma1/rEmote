@@ -1058,6 +1058,7 @@ div#shouts {
 
 div#shouts table {
 	font-size: 12px;
+	white-space: nowrap;
 }
 
 div#shouts table span.hint {
