@@ -235,6 +235,11 @@ function popupfun( link )
 
 		newtr = document.createElement('TR');
 		newtr.className = par.className;
+		
+		//New way to find the right tbody
+		table = par;
+		while(table.tagName != 'TBODY') table = table.parentNode;
+		
 		table.insertBefore( newtr, par.nextSibling);
 
 
