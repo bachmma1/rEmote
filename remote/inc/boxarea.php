@@ -60,7 +60,7 @@ class Shoutbox
 
 		$shouts = '<table>';
 		while($h = $db->fetch($result))
-			$shouts .= sprintf('<tr><td><strong>%s</strong> <span class="hint">%s</span></td><td>%s</td><td>%s</td></tr>',
+			$shouts .= sprintf('<tr><td id="username_shouts"><strong>%s</strong> <span class="hint">%s</span></td><td>%s</td><td>%s</td></tr>',
 				$db->out($h['name']),
 				date('d.m.y H:i', $h['time']),
 				$this->processMessage($db->out($h['message'])),

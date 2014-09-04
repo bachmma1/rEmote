@@ -1058,11 +1058,14 @@ div#shouts {
 
 div#shouts table {
 	font-size: 12px;
-	white-space: nowrap;
 }
 
 div#shouts table span.hint {
 	font-size: 0.8em;
+}
+
+div#shouts table td#username_shouts {
+	white-space: nowrap;
 }
 
 div#shout input[type=text] {
