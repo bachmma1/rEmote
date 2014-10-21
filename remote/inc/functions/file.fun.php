@@ -186,21 +186,27 @@ function rrmdir($dir)
 {
 	$s = true;
 	$dirs = scandir($dir);
-	foreach($dirs as $d)
-	{
-		if($d == '.' || $d == '..')
-			continue;
-		if(!is_dir("$dir/$d") || is_link("$dir/$d"))
-		{
-			if(!unlink("$dir/$d"))
-				$s = false;
-		}
-		else
-		{
-			if(!rrmdir("$dir/$d"))
-				$s = false;
-		}
-	}
+  if(is_array($dirs))
+  {
+	  foreach($dirs as $d)
+	  {
+		  if($d == '.' || $d == '..')
+			  continue;
+		  if(!is_dir("$dir/$d") || is_link("$dir/$d"))
+		  {
+			  if(!unlink("$dir/$d"))
+				  $s = false;
+		  }
+		  else
+		  {
+			  if(!rrmdir("$dir/$d"))
+				  $s = false;
+		  }
+	  }
+  }
+  else {
+    unlink($dir);
+  }
 	if($s)
 	{
 		if(!rmdir($dir))

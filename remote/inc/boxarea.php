@@ -60,9 +60,9 @@ class Shoutbox
 
 		$shouts = '<table>';
 		while($h = $db->fetch($result))
-			$shouts .= sprintf('<tr><td id="username_shouts"><strong>%s</strong> <span class="hint">%s</span></td><td>%s</td><td>%s</td></tr>',
-				$db->out($h['name']),
+			$shouts .= sprintf('<tr><td id="username_shouts"><span class="hint">%s</span> <strong>%s</strong></td><td>%s</td><td>%s</td></tr>',
 				date('d.m.y H:i', $h['time']),
+				$db->out($h['name']),
 				$this->processMessage($db->out($h['message'])),
 				'&nbsp;' // REPLACE BY DELETE-LINK
 			);

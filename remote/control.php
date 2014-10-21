@@ -23,20 +23,20 @@ function starttorrent($hash)
 
 
 
-function deletetorrent($hash)
+function deletetorrent($hash, $path)
 {
-	global $settings, $db, $rpc;
+        global $settings, $db, $rpc;
 
-	$rpc->request('d.erase', array($hash));
-	logger(LOGADDDEL | LOGDEBUG, 'Deleted '.$hash, __FILE__, __LINE__);
-	if($settings['real_multiuser'])
-		$db->query('DELETE FROM torrents WHERE hash = ?', 's', $hash);
-}
+        if($path != "") {
+                $dir = $rpc->request('d.get_base_path', $hash);
+                include('inc/functions/file.fun.php');
+                rrmdir($dir);
+        }
 
-function deletedata($path)
-{
-	include('inc/functions/file.fun.php');
-	rrmdir($path);
+        $rpc->request('d.erase', array($hash));
+        logger(LOGADDDEL | LOGDEBUG, 'Deleted '.$hash, __FILE__, __LINE__);
+        if($settings['real_multiuser'])
+                $db->query('DELETE FROM torrents WHERE hash = ?', 's', $hash);
 }
 
 function hashtorrent($hash)
@@ -116,10 +116,7 @@ else if(isset($_GET['hash']) && isset($_GET['ctl']))
 				starttorrent($hash);
 				break;
 			case 'delete':
-				deletetorrent($hash);
-				if(isset($_GET['path'])) {
-					deletedata($_GET['path']);
-				}
+				deletetorrent($hash, $_GET['path']);
 				break;
 			case 'hash':
 				hashtorrent($hash);
