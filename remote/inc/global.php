@@ -28,8 +28,8 @@ define('BOX_TOP',     1);
 define('BOX_BOTTOM',  2);
 define('BOX_RIGHT',   3);
 
-define('REMOTE_BUILD', 4);
-define('REMOTE_VERSION', '2.0.0-B1');
+define('REMOTE_BUILD', 1);
+define('REMOTE_VERSION', '2.1.0');
 
 //VIEW/SOURCE/GROUP
 $view_arr    = array('main', 'started', 'stopped', 'complete', 'incomplete', 'seeding');
@@ -58,12 +58,12 @@ $rpc = new RpcHandler($rpc_connect);
 
 $result = $rpc->simple_multicall('system.client_version',
 											'system.library_version',
-											'get_down_rate',
-											'get_up_rate',
-											'get_download_rate',
-											'get_upload_rate',
-											'get_down_total',
-											'get_up_total');
+											'throttle.global_down.rate',
+											'throttle.global_up.rate',
+											'throttle.global_down.max_rate',
+											'throttle.global_up.max_rate',
+											'throttle.global_down.total',
+											'throttle.global_up.total');
 
 $global['versions']['remote']     = REMOTE_VERSION.'-'.REMOTE_BUILD;
 $global['versions']['rtorrent']   = $result[0][0];

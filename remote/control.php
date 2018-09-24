@@ -28,7 +28,7 @@ function deletetorrent($hash, $path)
         global $settings, $db, $rpc;
 
         if($path != "") {
-                $dir = $rpc->request('d.get_base_path', $hash);
+                $dir = $rpc->request('d.base_path', $hash);
                 include('inc/functions/file.fun.php');
                 rrmdir($dir);
         }
@@ -160,7 +160,7 @@ else if(isset($_POST['multistart_x']) || isset($_POST['multistop_x']) || isset($
 else if(isset($_POST['fileprio']))
 {
 	$hash = $_REQUEST['hash'];
-	$num = $rpc->request('d.get_size_files', array($hash));
+	$num = $rpc->request('d.size_files', array($hash));
 	$req = array();
 	for($x = 0; $x < $num; $x++)
 	{
@@ -198,8 +198,8 @@ else if(isset($_POST['maxspeeds']))
 		$maxup   = 1024 * $_POST['maxup'];
 		$maxdown = 1024 * $_POST['maxdown'];
 
-		$rpc->multicall('set_upload_rate',   array($maxup),
-							'set_download_rate', array($maxdown));
+		$rpc->multicall('throttle.global_up.max_rate.set',   array($maxup),
+							'throttle.global_down.max_rate.set', array($maxdown));
 		
 		logger(LOGINFOS, "Changed Maximum-Speeds (by {$_SESSION['uid']})", __FILE__, __LINE__);
 	}
@@ -234,7 +234,7 @@ else if(isset($_POST['priochange']))
 		else
 			$hash = $_POST['hash'];
 		if($hash != '')
-			$rpc->request('d.set_priority', array($hash, $_POST['prio']));
+			$rpc->request('d.priority.set', array($hash, $_POST['prio']));
 	}
 }
 

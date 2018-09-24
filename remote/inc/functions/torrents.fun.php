@@ -238,7 +238,7 @@ function add_missing_hashes()
 
 
 	// Get Hashes in rTorrent
-	$response = $rpc->request('d.multicall', array('main', 'd.get_hash='));
+	$response = $rpc->request('d.multicall2', array('', 'main', 'd.hash='));
 
 	// Get Hashes in Database
 	$hashes = array();
@@ -261,7 +261,7 @@ function torrent_exists($hash)
 {
 	global $rpc;
 
-	$response = $rpc->request('d.get_hash', array($hash), false);
+	$response = $rpc->request('d.hash', array($hash), false);
 
 	if($response === false)
 		return false;

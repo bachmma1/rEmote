@@ -29,29 +29,30 @@ function get_full_list($view, $group, $source, $collapsed)
 {
 	global $view_arr, $db, $settings, $rpc;
 
-	$request = array($view_arr[$view],
-			'd.get_complete=',
-			'd.get_completed_bytes=',
-			'd.get_connection_current=',
-			'd.get_down_rate=',
-			'd.get_hash=',
-			'd.get_message=',
-			'd.get_name=',
-			'd.get_peers_complete=',
-			'd.get_peers_connected=',
-			'd.get_peers_not_connected=',
-			'd.get_priority=',
-			'd.get_ratio=',
-			'd.get_size_bytes=',
-			'd.get_up_rate=',
-			'd.get_up_total=',
+	$request = array('',
+			$view_arr[$view],
+			'd.complete=',
+			'd.completed_bytes=',
+			'd.connection_current=',
+			'd.down.rate=',
+			'd.hash=',
+			'd.message=',
+			'd.name=',
+			'd.peers_complete=',
+			'd.peers_connected=',
+			'd.peers_not_connected=',
+			'd.priority=',
+			'd.ratio=',
+			'd.size_bytes=',
+			'd.up.rate=',
+			'd.up.total=',
 			'd.is_active=',
-			'd.get_left_bytes=',
-			'd.get_directory=',
+			'd.left_bytes=',
+			'd.directory=',
 			'd.timestamp.started='
 	);
 
-	$response = $rpc->request('d.multicall', $request);
+	$response = $rpc->request('d.multicall2', $request);
 
 	if($settings['real_multiuser'] && $source < 3)
 	{
@@ -132,7 +133,7 @@ function get_full_list($view, $group, $source, $collapsed)
 				// GROUP BY TRACKER
 				if(!isset($cache[$item[HASH]]))
 				{
-					$response = $rpc->request('t.multicall', array($item[HASH], '', 't.get_url='));
+					$response = $rpc->request('t.multicall', array($item[HASH], '', 't.url='));
 					$url = parse_url($response[0][0]);
 					$cache[$item[HASH]] = $url['host'];
 					$cache_modified = true;
