@@ -55,12 +55,12 @@ function get_file_list($hash)
 	$response = $rpc->request('f.multicall',
 								array($hash,
 										"",
-										'f.get_completed_chunks=',
-										'f.get_path=',
-										'f.get_path_components=',
-										'f.get_priority=',
-										'f.get_size_bytes=',
-										'f.get_size_chunks='));
+										'f.completed_chunks=',
+										'f.path=',
+										'f.path_components=',
+										'f.priority=',
+										'f.size_bytes=',
+										'f.size_chunks='));
 
 	$index=0;
 	foreach($response AS $item)
@@ -81,16 +81,16 @@ function get_file_array($hash)
 {
 	global $rpc;
 
-	$name     = $rpc->request('d.get_name', array($hash));
+	$name     = $rpc->request('d.name', array($hash));
 	$response = $rpc->request('f.multicall',
 								array($hash,
 										"",
-										'f.get_completed_chunks=',
-										'f.get_path=',
-										'f.get_path_components=',
-										'f.get_priority=',
-										'f.get_size_bytes=',
-										'f.get_size_chunks='));
+										'f.completed_chunks=',
+										'f.path=',
+										'f.path_components=',
+										'f.priority=',
+										'f.size_bytes=',
+										'f.size_chunks='));
 
 	$index=0;
 	$root = new CFolder(htmlspecialchars(replace_latin1($name), ENT_QUOTES));
@@ -175,12 +175,12 @@ function get_peer_list($hash)
 		$response = $rpc->request("p.multicall",
 									array($hash,
 										0,
-										'p.get_address=',
-										'p.get_client_version=',
-										'p.get_completed_percent=',
-										'p.get_down_rate=',
-										'p.get_up_rate=',
-										'p.get_port=',
+										'p.address=',
+										'p.client_version=',
+										'p.completed_percent=',
+										'p.down_rate=',
+										'p.up_rate=',
+										'p.port=',
 										'p.is_encrypted=',
 										'p.get_bitfield='));
 	else
@@ -188,12 +188,12 @@ function get_peer_list($hash)
 		$response = $rpc->request("p.multicall",
 									array($hash,
 										0,
-										'p.get_address=',
-										'p.get_client_version=',
-										'p.get_completed_percent=',
-										'p.get_down_rate=',
-										'p.get_up_rate=',
-										'p.get_port=',
+										'p.address=',
+										'p.client_version=',
+										'p.completed_percent=',
+										'p.down_rate=',
+										'p.up_rate=',
+										'p.port=',
 										'p.is_encrypted='));
 
 	$index = 0;
@@ -241,10 +241,10 @@ function get_tracker_list($hash)
 	$response = $rpc->request("t.multicall",
 									array($hash,
 											'',
-											't.get_normal_interval=',
-											't.get_scrape_complete=',
-											't.get_scrape_time_last=',
-											't.get_url=',
+											't.normal_interval=',
+											't.scrape_complete=',
+											't.scrape_time_last=',
+											't.url=',
 											't.is_enabled='));
 	$retarr = array();
 	$x = 0;
@@ -330,26 +330,26 @@ function page_infos($hash)
 	require_once(TO_ROOT.'inc/defines/torrent.php');
 
 	$response = $rpc->multicall(
-		'd.get_complete',            array($hash),
-		'd.get_completed_bytes',     array($hash),
-		'd.get_connection_current',  array($hash),
-		'd.get_down_rate',           array($hash),
-		'd.get_hash',                array($hash),
-		'd.get_message',             array($hash),
-		'd.get_name',                array($hash),
-		'd.get_peers_complete',      array($hash),
-		'd.get_peers_connected',     array($hash),
-		'd.get_peers_not_connected', array($hash),
-		'd.get_priority',            array($hash),
-		'd.get_ratio',               array($hash),
-		'd.get_size_bytes',          array($hash),
-		'd.get_up_rate',             array($hash),
-		'd.get_up_total',            array($hash),
+		'd.complete',            array($hash),
+		'd.completed_bytes',     array($hash),
+		'd.connection_current',  array($hash),
+		'd.down.rate',           array($hash),
+		'd.hash',                array($hash),
+		'd.message',             array($hash),
+		'd.name',                array($hash),
+		'd.peers_complete',      array($hash),
+		'd.peers_connected',     array($hash),
+		'd.peers_not_connected', array($hash),
+		'd.priority',            array($hash),
+		'd.ratio',               array($hash),
+		'd.size_bytes',          array($hash),
+		'd.up.rate',             array($hash),
+		'd.up.total',            array($hash),
 		'd.is_active',               array($hash),
-		'd.get_left_bytes',          array($hash),
-		'd.get_directory',           array($hash),
-		'd.get_down_total',          array($hash),
-		'd.get_size_chunks',         array($hash),
+		'd.left_bytes',          array($hash),
+		'd.directory',           array($hash),
+		'd.down.total',          array($hash),
+		'd.size_chunks',         array($hash),
 		'd.timestamp.started',       array($hash)
 	);
 

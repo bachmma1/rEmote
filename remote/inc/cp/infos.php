@@ -15,7 +15,7 @@ $cpout .= '</fieldset>';
 
 if($settings['user_see_serverinfo'] == '1' || $_SESSION['status'] > 1)
 {
-	$infos    = $rpc->simple_multicall('get_memory_usage', 'system.pid', 'system.hostname');
+	$infos    = $rpc->simple_multicall('pieces.memory.current', 'system.pid', 'system.hostname');
 	$rtstats  = "<table id=\"rtstats\">";
 	$rtstats .= "<tr><td>{$lng['memusage']}:</td><td>".format_bytes($infos[0][0])."</td></tr>";
 	$rtstats .= "<tr><td>{$lng['versioncli']}:</td><td>{$global['versions']['rtorrent']}</td></tr>";

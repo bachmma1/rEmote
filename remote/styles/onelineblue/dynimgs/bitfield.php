@@ -17,7 +17,7 @@ if(isset($_GET['key']))
 }
 else
 {
-	if(false === ($response = $rpc->request('d.get_bitfield', array($_GET['hash']), false)))
+	if(false === ($response = $rpc->request('d.bitfield', array($_GET['hash']), false)))
 		$out->quit("norpc");
 
 	$bitfield = $response;

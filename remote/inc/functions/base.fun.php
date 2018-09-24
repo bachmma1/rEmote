@@ -103,7 +103,7 @@ function format_bytes($bytes)
 function set_directory($dir)
 {
 	global $rpc;
-	$rpc->request('set_directory', $dir);
+	$rpc->request('directory.default.set', $dir);
 }
 
 function is_valid_dir($pdir)
