@@ -28,7 +28,7 @@ function deletetorrent($hash, $path)
         global $settings, $db, $rpc;
 
         if($path != "") {
-                $dir = $rpc->request('d.base_path', $hash);
+                $dir = $rpc->request('d.base_path', array($hash));
                 include('inc/functions/file.fun.php');
                 rrmdir($dir);
         }

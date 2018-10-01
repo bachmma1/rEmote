@@ -31,7 +31,7 @@ if($settings['user_see_serverinfo'] == '1' || $_SESSION['status'] > 1)
 	$cpout .= '<pre>'.shell_exec('w').'</pre></fieldset>';
 
 	$cpout .= "<fieldset class=\"box\" id=\"bmemory\"><legend>{$lng['memory']}</legend>";
-	$cpout .= '<pre>'.shell_exec('free -mo').'</pre></fieldset>';
+	$cpout .= '<pre>'.shell_exec('free -m').'</pre></fieldset>';
 
 	$cpout .= "<fieldset class=\"box\" id=\"buptime\"><legend>{$lng['uptime']}</legend>";
 	$cpout .= '<pre>'.shell_exec('uptime').'</pre></fieldset>';

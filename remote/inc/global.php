@@ -29,7 +29,7 @@ define('BOX_BOTTOM',  2);
 define('BOX_RIGHT',   3);
 
 define('REMOTE_BUILD', 1);
-define('REMOTE_VERSION', '2.1.0');
+define('REMOTE_VERSION', '2.1.1');
 
 //VIEW/SOURCE/GROUP
 $view_arr    = array('main', 'started', 'stopped', 'complete', 'incomplete', 'seeding');

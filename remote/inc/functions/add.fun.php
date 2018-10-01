@@ -54,7 +54,13 @@ function add_torrent($file, $action, $public, $delete = true)
 
 	if(torrent_exists($hash))
 		return($lng['torrexists']);
-	$rpc->request($action, $file);
+
+
+	logger(LOGDEBUG, "RPC action: '$action'", __FILE__, __LINE__);
+	logger(LOGDEBUG, "RPC param (file): '$file'", __FILE__, __LINE__);
+
+	$rpc->request($action, array('', $file));
+
 	if(!($time = filesize($file)))
 		$time = SLEEP_AFTER_TORRENT_LOAD;
 	usleep($time + 10000);
@@ -86,7 +92,9 @@ function get_torrent($url, $public, $start = false, $add_resume_data = false)
 
 	$action = 'load';
 	if($start)
-		$action .= '_start';
+		$action .= '.start';
+	else
+		$action .= '.normal';
 
 	if(($pieces = parse_url($url)) === false || !isset($pieces['host']) || !isset($pieces['path']))
 		return($lng['addinvurl']);
@@ -131,14 +139,22 @@ function add_file($tmpname, $filename, $public, $start=0)
 
 	$action = 'load';
 	if($start)
-		$action .= '_start';
+		$action .= '.start';
+	else
+		$action .= '.normal';
 
-	logger(LOGADDDEL | LOGDEBUG, "Tried to add file '$filename'", __FILE__, __LINE__);
 
+	logger(LOGDEBUG, "add_file - tmpname: '$tmpname'", __FILE__, __LINE__);
+	logger(LOGDEBUG, "add_file - filename: '$filename'", __FILE__, __LINE__);
+	logger(LOGDEBUG, "add_file - public: '$public'", __FILE__, __LINE__);
+	logger(LOGDEBUG, "add_file - start: '$start'", __FILE__, __LINE__);
+	logger(LOGDEBUG, "add_file - setting.tmpdir: '$settings['tmpdir']'", __FILE__, __LINE__);
+
+	// https://www.maxoberberger.net/blog/2017/10/debian-9-private-tmp.html
 	if(@copy($tmpname, $settings['tmpdir'].$filename))
 		return(add_torrent($settings['tmpdir'].$filename, $action, $public));
 	else
-		return($lng['torrnotfound']);
+		return($lng['tornotfound']);
 }
 
 ?>
