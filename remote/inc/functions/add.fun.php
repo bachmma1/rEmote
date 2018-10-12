@@ -148,7 +148,7 @@ function add_file($tmpname, $filename, $public, $start=0)
 	logger(LOGDEBUG, "add_file - filename: '$filename'", __FILE__, __LINE__);
 	logger(LOGDEBUG, "add_file - public: '$public'", __FILE__, __LINE__);
 	logger(LOGDEBUG, "add_file - start: '$start'", __FILE__, __LINE__);
-	logger(LOGDEBUG, "add_file - setting.tmpdir: '$settings['tmpdir']'", __FILE__, __LINE__);
+	logger(LOGDEBUG, "add_file - setting.tmpdir: '".$settings['tmpdir']".'", __FILE__, __LINE__);
 
 	// https://www.maxoberberger.net/blog/2017/10/debian-9-private-tmp.html
 	if(@copy($tmpname, $settings['tmpdir'].$filename))
