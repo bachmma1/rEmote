@@ -48,6 +48,7 @@ class Shoutbox
 	{
 		$string = $this->highlightUsername($string);
 		$string = $this->replaceSmileys($string);
+		$string = $this->link_it($string);
 		
 		return $string;
 	}
@@ -276,7 +277,7 @@ class BoxArea
 			{
 				$l = '<ul>';
 				foreach($list as $label => $url)
-					$l .= "<li><a href=\"$url\" title=\"$label\">$label</a></li>";
+					$l .= "<li><a href=\"./dereferer.php?url=$url\" target=\"_blank\" title=\"$label\">$label</a></li>";
 				$l .= '</ul>';
 			}
 
