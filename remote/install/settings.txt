@@ -2,7 +2,7 @@
 ('session_lifetime', 'Session-Lifetime', 3, 'int', '', '3600', 2, '3600')
 ('max_exec_time', 'Maximum Execution-Time', 4, 'int', '', '300', 1, '300')
 ('def_start_torrent', 'Mark "Start-Torrent" Field by default', 0, 'yn', '', '0', 3, '0')
-('default_style', 'Default Style', 0, 'php|txt|$input = "<select name=\\"$skey\\">"; $a = scandir(TO_ROOT.''styles/'');\r\nforeach($a as $f)\r\n{ if($f == ''.'' || $f == ''..'') continue;\r\nif($value == $f) $checked = '' selected="selected"'';\r\nelse $checked = '''';\r\n$input .= "<option value=\\"$f\\"$checked>$f</option>";\r\n}\r\n$input .= ''</select>'';\r\nunset($a);\r\nunset($f);', '', 'newblue', 5, 'newblue')
+('default_style', 'Default Style', 0, 'php|txt|$input = "<select name=\\"$skey\\">"; $a = scandir(TO_ROOT.''styles/'');\r\nforeach($a as $f)\r\n{ if($f == ''.'' || $f == ''..'') continue;\r\nif($value == $f) $checked = '' selected="selected"'';\r\nelse $checked = '''';\r\n$input .= "<option value=\\"$f\\"$checked>$f</option>";\r\n}\r\n$input .= ''</select>'';\r\nunset($a);\r\nunset($f);', '', 'onelineblue', 5, 'onelineblue')
 ('default_lng', 'Default Language', 0, 'php|txt|$input = "<select name=\\"$skey\\">"; $a = scandir(TO_ROOT.''languages/'');\r\nforeach($a as $f)\r\n{ if($f == ''.'' || $f == ''..'') continue;\r\nif($value == $f) $checked = '' selected="selected"'';\r\nelse $checked = '''';\r\n$input .= "<option value=\\"$f\\"$checked>$f</option>";\r\n}\r\n$input .= ''</select>'';\r\nunset($a);\r\nunset($f);', '', 'Deutsch', 6, 'English')
 ('refresh_no_timeout', 'Extend Session by automatic refreshing', 3, 'yn', '', '0', 0, '0')
 ('html_title', 'Page Title', 0, 'txt', '', 'rEmote - your rTorrent WebGUI', 5, 'rEmote - your rtorrent WebGUI')
