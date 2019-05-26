@@ -78,7 +78,7 @@ class REmoteSessionHandler
 }
 
 /* Tell PHP to use Session functions */
-ini_set('session.save_handler', 'user');
+/* ini_set('session.save_handler', 'user'); <== no longer needed since php 7.2+ */ 
 session_set_save_handler('REmoteSessionHandler::open', 'REmoteSessionHandler::close', 'REmoteSessionHandler::read', 'REmoteSessionHandler::write', 'REmoteSessionHandler::destroy', 'REmoteSessionHandler::gc');
 
 ?>
