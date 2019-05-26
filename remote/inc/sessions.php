@@ -48,10 +48,12 @@ class REmoteSessionHandler
 										$id);
 		}
 		else
-			$res = $db->query('INSERT INTO sessions (sid, data, time) VALUES (?, ?, ?)', 'ssi',
+			$res = $db->query('INSERT INTO sessions (sid, data, time, uid, permanent) VALUES (?, ?, ?, ?, ?)', 'ssiii',
 									$id,
 									$data,
-									time());
+									time(),
+									$data['uid'],
+									$data['permanent']);
 
 		return($db->affected_rows($res));
 	}
